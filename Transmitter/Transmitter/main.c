@@ -35,7 +35,7 @@ int TickFct_Leader(int state) {
 		if (USART_IsSendReady(0))
 		{
 			temp ^= 0x03;
-			//PORTA = temp;
+			PORTA = temp;
 			USART_Send(0X55 , 0);
 		}
 		break;
