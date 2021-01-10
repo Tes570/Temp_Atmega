@@ -24,27 +24,24 @@ int TickFct_Leader(int state) {
 		case Leader_Output:
 		break;
 		
-		default:
-		state = -1;
-		break;
 	}
 
 	switch(state) { 
 		case -1: 
-		state = Leader_Output;
+		
 		break;
 		
 		case Leader_Output:
 		if (USART_IsSendReady(0))
 		{
 			temp ^= 0x03;
-			PORTA = temp;
+			//PORTA = temp;
 			USART_Send(0X55 , 0);
 		}
 		break;
 		
 		default:
-		state = -1;
+		
 		break;
 	}
 

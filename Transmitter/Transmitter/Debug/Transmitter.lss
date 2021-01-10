@@ -3,31 +3,31 @@ Transmitter.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000006  00800100  00000398  0000042c  2**0
+  0 .data         00000006  00800100  000003a2  00000436  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000398  00000000  00000000  00000094  2**1
+  1 .text         000003a2  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000008  00800106  00800106  00000432  2**0
+  2 .bss          00000008  00800106  00800106  0000043c  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000432  2**0
+  3 .comment      00000030  00000000  00000000  0000043c  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000464  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000046c  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000078  00000000  00000000  000004a4  2**0
+  5 .debug_aranges 00000078  00000000  00000000  000004ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000b8c  00000000  00000000  0000051c  2**0
+  6 .debug_info   00000b8c  00000000  00000000  00000524  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000094c  00000000  00000000  000010a8  2**0
+  7 .debug_abbrev 0000094c  00000000  00000000  000010b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000004ce  00000000  00000000  000019f4  2**0
+  8 .debug_line   000004ce  00000000  00000000  000019fc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000150  00000000  00000000  00001ec4  2**2
+  9 .debug_frame  00000150  00000000  00000000  00001ecc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000510  00000000  00000000  00002014  2**0
+ 10 .debug_str    00000510  00000000  00000000  0000201c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000002e9  00000000  00000000  00002524  2**0
+ 11 .debug_loc    000002dc  00000000  00000000  0000252c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000068  00000000  00000000  0000280d  2**0
+ 12 .debug_ranges 00000068  00000000  00000000  00002808  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -116,7 +116,7 @@ Disassembly of section .text:
   98:	11 e0       	ldi	r17, 0x01	; 1
   9a:	a0 e0       	ldi	r26, 0x00	; 0
   9c:	b1 e0       	ldi	r27, 0x01	; 1
-  9e:	e8 e9       	ldi	r30, 0x98	; 152
+  9e:	e2 ea       	ldi	r30, 0xA2	; 162
   a0:	f3 e0       	ldi	r31, 0x03	; 3
   a2:	00 e0       	ldi	r16, 0x00	; 0
   a4:	0b bf       	out	0x3b, r16	; 59
@@ -140,8 +140,8 @@ Disassembly of section .text:
   bc:	ae 30       	cpi	r26, 0x0E	; 14
   be:	b2 07       	cpc	r27, r18
   c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
-  c2:	38 d1       	rcall	.+624    	; 0x334 <main>
-  c4:	67 c1       	rjmp	.+718    	; 0x394 <_exit>
+  c2:	3d d1       	rcall	.+634    	; 0x33e <main>
+  c4:	6c c1       	rjmp	.+728    	; 0x39e <_exit>
 
 000000c6 <__bad_interrupt>:
   c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
@@ -395,98 +395,103 @@ Disassembly of section .text:
  30a:	08 95       	ret
 
 0000030c <TickFct_Leader>:
- 30c:	01 96       	adiw	r24, 0x01	; 1
- 30e:	02 97       	sbiw	r24, 0x02	; 2
- 310:	70 f4       	brcc	.+28     	; 0x32e <TickFct_Leader+0x22>
- 312:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
- 316:	85 ff       	sbrs	r24, 5
- 318:	0a c0       	rjmp	.+20     	; 0x32e <TickFct_Leader+0x22>
- 31a:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
- 31e:	83 e0       	ldi	r24, 0x03	; 3
- 320:	89 27       	eor	r24, r25
- 322:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
- 326:	82 b9       	out	0x02, r24	; 2
- 328:	60 e0       	ldi	r22, 0x00	; 0
- 32a:	85 e5       	ldi	r24, 0x55	; 85
- 32c:	dd df       	rcall	.-70     	; 0x2e8 <USART_Send>
- 32e:	80 e0       	ldi	r24, 0x00	; 0
- 330:	90 e0       	ldi	r25, 0x00	; 0
- 332:	08 95       	ret
+ 30c:	8f 3f       	cpi	r24, 0xFF	; 255
+ 30e:	2f ef       	ldi	r18, 0xFF	; 255
+ 310:	92 07       	cpc	r25, r18
+ 312:	11 f0       	breq	.+4      	; 0x318 <TickFct_Leader+0xc>
+ 314:	00 97       	sbiw	r24, 0x00	; 0
+ 316:	91 f4       	brne	.+36     	; 0x33c <TickFct_Leader+0x30>
+ 318:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
+ 31c:	85 ff       	sbrs	r24, 5
+ 31e:	0c c0       	rjmp	.+24     	; 0x338 <TickFct_Leader+0x2c>
+ 320:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <__data_start>
+ 324:	83 e0       	ldi	r24, 0x03	; 3
+ 326:	89 27       	eor	r24, r25
+ 328:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+ 32c:	60 e0       	ldi	r22, 0x00	; 0
+ 32e:	85 e5       	ldi	r24, 0x55	; 85
+ 330:	db df       	rcall	.-74     	; 0x2e8 <USART_Send>
+ 332:	80 e0       	ldi	r24, 0x00	; 0
+ 334:	90 e0       	ldi	r25, 0x00	; 0
+ 336:	08 95       	ret
+ 338:	80 e0       	ldi	r24, 0x00	; 0
+ 33a:	90 e0       	ldi	r25, 0x00	; 0
+ 33c:	08 95       	ret
 
-00000334 <main>:
+0000033e <main>:
 }
 
 
 
 
 int main(void) {
- 334:	cf 93       	push	r28
- 336:	df 93       	push	r29
- 338:	cd b7       	in	r28, 0x3d	; 61
- 33a:	de b7       	in	r29, 0x3e	; 62
- 33c:	2b 97       	sbiw	r28, 0x0b	; 11
- 33e:	0f b6       	in	r0, 0x3f	; 63
- 340:	f8 94       	cli
- 342:	de bf       	out	0x3e, r29	; 62
- 344:	0f be       	out	0x3f, r0	; 63
- 346:	cd bf       	out	0x3d, r28	; 61
+ 33e:	cf 93       	push	r28
+ 340:	df 93       	push	r29
+ 342:	cd b7       	in	r28, 0x3d	; 61
+ 344:	de b7       	in	r29, 0x3e	; 62
+ 346:	2b 97       	sbiw	r28, 0x0b	; 11
+ 348:	0f b6       	in	r0, 0x3f	; 63
+ 34a:	f8 94       	cli
+ 34c:	de bf       	out	0x3e, r29	; 62
+ 34e:	0f be       	out	0x3f, r0	; 63
+ 350:	cd bf       	out	0x3d, r28	; 61
 
 	
 	// initialize ports
 	DDRA = 0xFF; PORTA = 0x00;
- 348:	1f ef       	ldi	r17, 0xFF	; 255
- 34a:	11 b9       	out	0x01, r17	; 1
- 34c:	12 b8       	out	0x02, r1	; 2
+ 352:	1f ef       	ldi	r17, 0xFF	; 255
+ 354:	11 b9       	out	0x01, r17	; 1
+ 356:	12 b8       	out	0x02, r1	; 2
 	initUSART(0);
- 34e:	80 e0       	ldi	r24, 0x00	; 0
- 350:	a7 df       	rcall	.-178    	; 0x2a0 <initUSART>
+ 358:	80 e0       	ldi	r24, 0x00	; 0
+ 35a:	a2 df       	rcall	.-188    	; 0x2a0 <initUSART>
 	
 	tasksNum = 1; 
- 352:	81 e0       	ldi	r24, 0x01	; 1
- 354:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <tasksNum>
+ 35c:	81 e0       	ldi	r24, 0x01	; 1
+ 35e:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <tasksNum>
 	task tsks[1]; 
 	tasks = tsks; 
- 358:	ce 01       	movw	r24, r28
- 35a:	01 96       	adiw	r24, 0x01	; 1
- 35c:	90 93 0d 01 	sts	0x010D, r25	; 0x80010d <tasks+0x1>
- 360:	80 93 0c 01 	sts	0x010C, r24	; 0x80010c <tasks>
+ 362:	ce 01       	movw	r24, r28
+ 364:	01 96       	adiw	r24, 0x01	; 1
+ 366:	90 93 0d 01 	sts	0x010D, r25	; 0x80010d <tasks+0x1>
+ 36a:	80 93 0c 01 	sts	0x010C, r24	; 0x80010c <tasks>
 	
 	// define tasks
 	unsigned char i=0; 
 	tasks[i].state = -1;
- 364:	19 83       	std	Y+1, r17	; 0x01
+ 36e:	19 83       	std	Y+1, r17	; 0x01
 	tasks[i].period = 1000;
- 366:	88 ee       	ldi	r24, 0xE8	; 232
- 368:	93 e0       	ldi	r25, 0x03	; 3
- 36a:	a0 e0       	ldi	r26, 0x00	; 0
- 36c:	b0 e0       	ldi	r27, 0x00	; 0
- 36e:	8a 83       	std	Y+2, r24	; 0x02
- 370:	9b 83       	std	Y+3, r25	; 0x03
- 372:	ac 83       	std	Y+4, r26	; 0x04
- 374:	bd 83       	std	Y+5, r27	; 0x05
+ 370:	88 ee       	ldi	r24, 0xE8	; 232
+ 372:	93 e0       	ldi	r25, 0x03	; 3
+ 374:	a0 e0       	ldi	r26, 0x00	; 0
+ 376:	b0 e0       	ldi	r27, 0x00	; 0
+ 378:	8a 83       	std	Y+2, r24	; 0x02
+ 37a:	9b 83       	std	Y+3, r25	; 0x03
+ 37c:	ac 83       	std	Y+4, r26	; 0x04
+ 37e:	bd 83       	std	Y+5, r27	; 0x05
 	tasks[i].elapsedTime = tasks[i].period;
- 376:	8e 83       	std	Y+6, r24	; 0x06
- 378:	9f 83       	std	Y+7, r25	; 0x07
- 37a:	a8 87       	std	Y+8, r26	; 0x08
- 37c:	b9 87       	std	Y+9, r27	; 0x09
+ 380:	8e 83       	std	Y+6, r24	; 0x06
+ 382:	9f 83       	std	Y+7, r25	; 0x07
+ 384:	a8 87       	std	Y+8, r26	; 0x08
+ 386:	b9 87       	std	Y+9, r27	; 0x09
 	tasks[i].TickFct = &TickFct_Leader;
- 37e:	86 e8       	ldi	r24, 0x86	; 134
- 380:	91 e0       	ldi	r25, 0x01	; 1
- 382:	9b 87       	std	Y+11, r25	; 0x0b
- 384:	8a 87       	std	Y+10, r24	; 0x0a
+ 388:	86 e8       	ldi	r24, 0x86	; 134
+ 38a:	91 e0       	ldi	r25, 0x01	; 1
+ 38c:	9b 87       	std	Y+11, r25	; 0x0b
+ 38e:	8a 87       	std	Y+10, r24	; 0x0a
 	
 	TimerSet(1000); 
- 386:	68 ee       	ldi	r22, 0xE8	; 232
- 388:	73 e0       	ldi	r23, 0x03	; 3
- 38a:	80 e0       	ldi	r24, 0x00	; 0
- 38c:	90 e0       	ldi	r25, 0x00	; 0
+ 390:	68 ee       	ldi	r22, 0xE8	; 232
+ 392:	73 e0       	ldi	r23, 0x03	; 3
+ 394:	80 e0       	ldi	r24, 0x00	; 0
+ 396:	90 e0       	ldi	r25, 0x00	; 0
 	TimerOn();
- 38e:	53 df       	rcall	.-346    	; 0x236 <TimerSet>
- 390:	63 df       	rcall	.-314    	; 0x258 <TimerOn>
- 392:	ff cf       	rjmp	.-2      	; 0x392 <main+0x5e>
+ 398:	4e df       	rcall	.-356    	; 0x236 <TimerSet>
+ 39a:	5e df       	rcall	.-324    	; 0x258 <TimerOn>
+ 39c:	ff cf       	rjmp	.-2      	; 0x39c <main+0x5e>
 
-00000394 <_exit>:
- 394:	f8 94       	cli
+0000039e <_exit>:
+ 39e:	f8 94       	cli
 
-00000396 <__stop_program>:
- 396:	ff cf       	rjmp	.-2      	; 0x396 <__stop_program>
+000003a0 <__stop_program>:
+ 3a0:	ff cf       	rjmp	.-2      	; 0x3a0 <__stop_program>
