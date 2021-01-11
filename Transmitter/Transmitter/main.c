@@ -10,8 +10,8 @@
 
 
 #define F_CPU 10000000UL  
-#include "SCHEDULER.h"
-#include "USART_ATMEGA1284.h"
+#include "..//..//usart_ATmega1284.h"
+#include "..//..//scheduler.h"
 
 unsigned char temp = 0x01;
 enum L_States { Leader_Output };

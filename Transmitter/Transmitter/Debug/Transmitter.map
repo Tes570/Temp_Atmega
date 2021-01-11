@@ -202,7 +202,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x3a2
+.text           0x00000000      0x3a4
  *(.vectors)
  .vectors       0x00000000       0x8c E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
                 0x00000000                __vector_default
@@ -297,33 +297,33 @@ END GROUP
                 0x000000c6                __vector_20
                 0x000000c8                . = ALIGN (0x2)
  *(.text.*)
- .text.TimerISR
-                0x000000c8       0xd2 main.o
-                0x000000c8                TimerISR
- .text.__vector_13
-                0x0000019a       0x9c main.o
-                0x0000019a                __vector_13
- .text.TimerSet
-                0x00000236       0x22 main.o
-                0x00000236                TimerSet
- .text.TimerOn  0x00000258       0x48 main.o
-                0x00000258                TimerOn
  .text.initUSART
-                0x000002a0       0x48 main.o
-                0x000002a0                initUSART
+                0x000000c8       0x48 main.o
+                0x000000c8                initUSART
  .text.USART_Send
-                0x000002e8       0x24 main.o
-                0x000002e8                USART_Send
+                0x00000110       0x24 main.o
+                0x00000110                USART_Send
  .text.TickFct_Leader
-                0x0000030c       0x32 main.o
-                0x0000030c                TickFct_Leader
- .text.main     0x0000033e       0x60 main.o
-                0x0000033e                main
-                0x0000039e                . = ALIGN (0x2)
+                0x00000134       0x34 main.o
+                0x00000134                TickFct_Leader
+ .text.TimerISR
+                0x00000168       0xd2 main.o
+                0x00000168                TimerISR
+ .text.__vector_13
+                0x0000023a       0x9c main.o
+                0x0000023a                __vector_13
+ .text.TimerSet
+                0x000002d6       0x22 main.o
+                0x000002d6                TimerSet
+ .text.TimerOn  0x000002f8       0x48 main.o
+                0x000002f8                TimerOn
+ .text.main     0x00000340       0x60 main.o
+                0x00000340                main
+                0x000003a0                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000039e        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x0000039e                _exit
-                0x0000039e                exit
+ .fini9         0x000003a0        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x000003a0                _exit
+                0x000003a0                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -342,11 +342,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000039e        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x000003a0        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x000003a2                _etext = .
+                0x000003a4                _etext = .
 
-.data           0x00800100        0x6 load address 0x000003a2
+.data           0x00800100        0x6 load address 0x000003a4
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -368,7 +368,7 @@ END GROUP
                 0x00800106                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.i.1614    0x00800106        0x1 main.o
+ .bss.i.1645    0x00800106        0x1 main.o
  .bss.tasksNum  0x00800107        0x1 main.o
                 0x00800107                tasksNum
  .bss.tasksPeriodCntDown
@@ -378,8 +378,8 @@ END GROUP
  COMMON         0x0080010c        0x2 main.o
                 0x0080010c                tasks
                 0x0080010e                PROVIDE (__bss_end, .)
-                0x000003a2                __data_load_start = LOADADDR (.data)
-                0x000003a8                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000003a4                __data_load_start = LOADADDR (.data)
+                0x000003aa                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080010e        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -468,10 +468,10 @@ END GROUP
  .debug_abbrev  0x00000000      0x729 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
  .debug_abbrev  0x00000729      0x223 main.o
 
-.debug_line     0x00000000      0x4ce
+.debug_line     0x00000000      0x4dd
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x16a E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
- .debug_line    0x0000016a      0x364 main.o
+ .debug_line    0x0000016a      0x373 main.o
 
 .debug_frame    0x00000000      0x150
  *(.debug_frame)

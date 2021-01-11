@@ -11,10 +11,12 @@ void initUSART(unsigned char usartNum)
 {
 	if (usartNum != 1) {
 
+		UBRR0H = (BAUD_PRESCALE >> 8);
+		UBRR0L = BAUD_PRESCALE;
 		UCSR0B |= (1 << RXEN0)  | (1 << TXEN0);
 		UCSR0C |= (1 << UCSZ00) | (1 << UCSZ01);
-		UBRR0L = BAUD_PRESCALE;
-		UBRR0H = (BAUD_PRESCALE >> 8);
+		
+		
 	}
 	else {
 

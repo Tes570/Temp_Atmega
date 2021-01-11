@@ -7,8 +7,8 @@
 
 
 #include <avr/io.h>
-#include "usart_ATmega1284.h"
-#include "scheduler.h"
+#include "..//..//usart_ATmega1284.h"
+#include "..//..//scheduler.h"
 
 
 enum States { Wait, Output };
