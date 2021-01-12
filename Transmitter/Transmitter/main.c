@@ -9,7 +9,7 @@
 #include <avr/io.h>
 
 
-#define F_CPU 10000000UL  
+//#define F_CPU 10000000UL  
 #include "..//..//usart_ATmega1284.h"
 #include "..//..//scheduler.h"
 
