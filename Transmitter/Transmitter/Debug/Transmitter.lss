@@ -156,7 +156,7 @@ Disassembly of section .text:
   c8:	81 30       	cpi	r24, 0x01	; 1
   ca:	81 f0       	breq	.+32     	; 0xec <initUSART+0x24>
   cc:	10 92 c5 00 	sts	0x00C5, r1	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7e00c5>
-  d0:	8f e4       	ldi	r24, 0x4F	; 79
+  d0:	8f e9       	ldi	r24, 0x9F	; 159
   d2:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
   d6:	e1 ec       	ldi	r30, 0xC1	; 193
   d8:	f0 e0       	ldi	r31, 0x00	; 0
@@ -179,7 +179,7 @@ Disassembly of section .text:
   fa:	80 81       	ld	r24, Z
   fc:	86 60       	ori	r24, 0x06	; 6
   fe:	80 83       	st	Z, r24
- 100:	8f e4       	ldi	r24, 0x4F	; 79
+ 100:	8f e9       	ldi	r24, 0x9F	; 159
  102:	80 93 cc 00 	sts	0x00CC, r24	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7e00cc>
  106:	10 92 cd 00 	sts	0x00CD, r1	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7e00cd>
  10a:	08 95       	ret
