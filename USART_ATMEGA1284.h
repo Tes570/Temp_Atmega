@@ -2,8 +2,9 @@
 #define USART_ATMEGA1284_H
 
 // USART Setup Values
-#define F_CPU 1000000UL 
-#define BAUD_RATE 50
+//#define F_CPU 1000000UL
+#define F_CPU 16000UL 
+#define BAUD_RATE 2
 #define BAUD_PRESCALE (((F_CPU / (BAUD_RATE * 4UL))) - 1)
 
 
