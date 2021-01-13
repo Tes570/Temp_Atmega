@@ -536,8 +536,8 @@ void TimerOn() {
 	// AVR output compare register OCR1A.
 	//OCR1A 	= 125;	// Timer interrupt will be generated when TCNT1==OCR1A
 
-	OCR1A 	= 10;	// Timer interrupt will be generated when TCNT1==OCR1A
- 380:	8a e0       	ldi	r24, 0x0A	; 10
+	OCR1A 	= 30;	// Timer interrupt will be generated when TCNT1==OCR1A
+ 380:	8e e1       	ldi	r24, 0x1E	; 30
  382:	90 e0       	ldi	r25, 0x00	; 0
  384:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <__TEXT_REGION_LENGTH__+0x7e0089>
  388:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7e0088>
