@@ -202,7 +202,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x38a
+.text           0x00000000      0x38e
  *(.vectors)
  .vectors       0x00000000       0x8c E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
                 0x00000000                __vector_default
@@ -298,32 +298,32 @@ END GROUP
                 0x000000c8                . = ALIGN (0x2)
  *(.text.*)
  .text.initUSART
-                0x000000c8       0x44 main.o
+                0x000000c8       0x48 main.o
                 0x000000c8                initUSART
  .text.USART_Receive
-                0x0000010c       0x24 main.o
-                0x0000010c                USART_Receive
+                0x00000110       0x24 main.o
+                0x00000110                USART_Receive
  .text.TickFct_Follower
-                0x00000130       0x1e main.o
-                0x00000130                TickFct_Follower
+                0x00000134       0x1e main.o
+                0x00000134                TickFct_Follower
  .text.TimerISR
-                0x0000014e       0xd2 main.o
-                0x0000014e                TimerISR
+                0x00000152       0xd2 main.o
+                0x00000152                TimerISR
  .text.__vector_13
-                0x00000220       0x9c main.o
-                0x00000220                __vector_13
+                0x00000224       0x9c main.o
+                0x00000224                __vector_13
  .text.TimerSet
-                0x000002bc       0x22 main.o
-                0x000002bc                TimerSet
- .text.TimerOn  0x000002de       0x48 main.o
-                0x000002de                TimerOn
- .text.main     0x00000326       0x60 main.o
-                0x00000326                main
-                0x00000386                . = ALIGN (0x2)
+                0x000002c0       0x22 main.o
+                0x000002c0                TimerSet
+ .text.TimerOn  0x000002e2       0x48 main.o
+                0x000002e2                TimerOn
+ .text.main     0x0000032a       0x60 main.o
+                0x0000032a                main
+                0x0000038a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000386        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x00000386                _exit
-                0x00000386                exit
+ .fini9         0x0000038a        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x0000038a                _exit
+                0x0000038a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -342,11 +342,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000386        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x0000038a        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000038a                _etext = .
+                0x0000038e                _etext = .
 
-.data           0x00800100        0x4 load address 0x0000038a
+.data           0x00800100        0x4 load address 0x0000038e
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -375,8 +375,8 @@ END GROUP
  COMMON         0x0080010a        0x2 main.o
                 0x0080010a                tasks
                 0x0080010c                PROVIDE (__bss_end, .)
-                0x0000038a                __data_load_start = LOADADDR (.data)
-                0x0000038e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000038e                __data_load_start = LOADADDR (.data)
+                0x00000392                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080010c        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
