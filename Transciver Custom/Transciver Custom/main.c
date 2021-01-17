@@ -6,41 +6,68 @@
  */ 
 
 #include "..//..//scheduler.h"
-
+#include "..//..//CONTROL.H"
 #include <avr/io.h>
 
-unsigned char temp = 0x02;
-enum L_States { Leader_Output, Hold, Stop};
+enum L_States { Idle, Check, Store, EndGet, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp};
+
+const int InstructLength = 8;
 	
-int Tstate;
+int Tstate = 0;
+unsigned char temp = 0x02;
 unsigned long Total = 0;
+
+#define Idata ((PORTD & 0x01) == 0x01)
+#define Odata (PORTD & 0x02)
+
 
 void Set_Clock(int tic);
 	
 int TickFct_Leader(int state) {
 	switch(state) {
 		case -1:
-			state = Leader_Output;
+			state = Idle;
 		break;
 		
-		case Leader_Output:
-			if(Total >= 50)
+		case Idle:
+			if(Idata)
 			{
-				state = Hold;
+				if(Timer(1))
+				{
+					state = Check;
+				}
 			}
 		break;
 		
-		case Hold:
-			if(Total >= 1000)
+		case Check:
+			if(Timer(4))
 			{
-				state = Stop;
+				if(Idata)
+				{
+					state = Store;
+				}
+				else
+				{
+					state = Idle;
+				}
 			}
-			
 		break;
 		
-		case Stop:
-			state = -1;
+		case Store:
+			if(Timer(4))
+			{
+				if(Tstate < InstructLength)
+				{
+					++Tstate;
+					
+				}
+				else
+				{
+					
+				}
+			}
 		break;
+		
 	}
 
 	switch(state) {
@@ -49,29 +76,6 @@ int TickFct_Leader(int state) {
 			temp = 0x02;
 		break;
 		
-		case Leader_Output:
-		
-			temp ^= 0x02;
-			PORTD = temp;
-			PORTA = temp;
-			Total += 1;
-		
-		break;
-		
-		case Hold:
-			Total += 1;
-			temp = 0x00;
-			PORTD = temp;
-			PORTA = temp;
-		break;
-		
-		case Stop:
-			Total = 0;
-			temp = 0x02;
-			PORTD = temp;
-			PORTA = temp;
-			//Set_Clock(100);
-		break;
 		
 	}
 
@@ -100,10 +104,9 @@ int main(void)
 	TimerSet(tasks[i].period);
 	TimerOn();
 	
-    /* Replace with your application code */
     while (1) 
     {
-		//Tstate = TickFct_Leader(Tstate);
+		
     }
 }
 
