@@ -9,6 +9,10 @@
 #include "..//..//CONTROL.H"
 #include <avr/io.h>
 
+#define Idata ((PORTD & 0x01) == 0x01)
+#define Gdata (PORTD)
+#define Odata (PORTD)
+
 enum L_States { Idle, Check, Store, EndGet, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp};
 
 const int InstructLength = 8;
@@ -17,8 +21,9 @@ int Tstate = 0;
 unsigned char temp = 0x02;
 unsigned long Total = 0;
 
-#define Idata ((PORTD & 0x01) == 0x01)
-#define Odata (PORTD & 0x02)
+char data = 0x00;
+
+
 
 
 void Set_Clock(int tic);
@@ -30,6 +35,7 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case Idle:
+			Tstate = 0;
 			if(Idata)
 			{
 				if(Timer(1))
@@ -45,6 +51,7 @@ int TickFct_Leader(int state) {
 				if(Idata)
 				{
 					state = Store;
+					data = 0x00;
 				}
 				else
 				{
@@ -58,15 +65,73 @@ int TickFct_Leader(int state) {
 			{
 				if(Tstate < InstructLength)
 				{
+					data = (Gdata << Tstate) | data;
 					++Tstate;
 					
 				}
 				else
 				{
-					
+					state = EndGet;
 				}
 			}
 		break;
+		
+		case EndGet:
+			if(Timer(4))
+			{
+				if(Idata)
+				{
+					state = CheckTask;
+				}
+				else
+				{
+					state = Idle;
+				}
+			}
+		break;
+		
+		case CheckTask:
+			state = Idle;
+		break;
+		
+		case StartSend:
+			if(Timer(4))
+			{
+				if(Tstate < 2)
+				{
+					Odata = 0x02;
+					++Tstate;
+				}
+				else
+				{
+					state = Send;
+				}
+			}
+		break;
+		
+		case Send:
+			if(Timer(4))
+			{
+				if(Tstate < InstructLength)
+				{
+					Odata = (data << (Tstate + 1));
+					++Tstate;
+				}
+				else
+				{
+					state = EndSend;
+				}
+			}
+		break;
+		
+		case EndSend:
+			Odata = 0x02;
+			if(Timer(4))
+			{
+				state = Idle;
+			}
+		break;
+		
 		
 	}
 

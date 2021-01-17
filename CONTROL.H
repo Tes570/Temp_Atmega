@@ -1,6 +1,8 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
+#include <stdbool.h>
+
 unsigned int time = 0;
 
 bool Timer(unsigned int m)
