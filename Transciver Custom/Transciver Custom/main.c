@@ -16,14 +16,12 @@
 enum L_States { Idle, Check, Store, EndGet, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp};
 
 const int InstructLength = 8;
+const char ID = 0x01; // starts at 0x01. Cannot be 0.
 	
 int Tstate = 0;
 unsigned char temp = 0x02;
 unsigned long Total = 0;
-
 char data = 0x00;
-
-
 
 
 void Set_Clock(int tic);
@@ -35,7 +33,12 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case Idle:
+		
+			data = 0x00;
 			Tstate = 0;
+			//PORTA = 0x03;
+			
+			
 			if(Idata)
 			{
 				if(Timer(1))
@@ -46,6 +49,7 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case Check:
+			
 			if(Timer(4))
 			{
 				if(Idata)
@@ -61,6 +65,7 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case Store:
+			//PORTA = 0x03;
 			if(Timer(4))
 			{
 				if(Tstate < InstructLength)
@@ -88,6 +93,7 @@ int TickFct_Leader(int state) {
 					state = Idle;
 				}
 			}
+			
 		break;
 		
 		case CheckTask:
@@ -135,14 +141,8 @@ int TickFct_Leader(int state) {
 		
 	}
 
-	switch(state) {
-		case -1:
-			//Set_Clock(500);
-			temp = 0x02;
-		break;
-		
-		
-	}
+
+	
 
 	return state;
 }
@@ -152,7 +152,7 @@ int main(void)
 {
 	DDRA = 0xFF; PORTA = 0x00;
 	
-	DDRD = 0xFE; PORTD = 0x00;
+	DDRD = 0xFE; PORTD = 0x01;
 	
 	//Set_Clock(500);
 	tasksNum = 1;
