@@ -97,7 +97,31 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case CheckTask:
-			state = Idle;
+		
+			if(data == 0x00)
+			{
+				state = Idle;
+			}
+			else
+			{
+				//	00  -  temp request
+				//	01  -  temp response
+				//	10  -  sync request
+				//	11  -  sync response
+				
+				if((data & 0xC0) == 0x00)
+				{
+					data = (0x40 | ID);
+					state = StartSend;
+				}
+				else if((data & 0xC0) == 0x80)
+				{
+					data = (0xC0 | ID);
+					state = StartSend;
+				}
+			}
+			
+			
 		break;
 		
 		case StartSend:

@@ -24,6 +24,7 @@ Discarded input sections
  .text.Start    0x00000000       0x12 main.o
  .bss.Total     0x00000000        0x4 main.o
  .data.temp     0x00000000        0x1 main.o
+ .rodata.ID     0x00000000        0x1 main.o
  .rodata.InstructLength
                 0x00000000        0x2 main.o
  .text          0x00000000        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
@@ -216,7 +217,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x4c4
+.text           0x00000000      0x4f6
  *(.vectors)
  .vectors       0x00000000       0x8c E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
                 0x00000000                __vector_default
@@ -327,17 +328,17 @@ END GROUP
  .text.Timer    0x000002b2       0x40 main.o
                 0x000002b2                Timer
  .text.TickFct_Leader
-                0x000002f2      0x158 main.o
+                0x000002f2      0x18a main.o
                 0x000002f2                TickFct_Leader
- .text.main     0x0000044a       0x64 main.o
-                0x0000044a                main
- .text.libgcc   0x000004ae       0x12 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
-                0x000004ae                __tablejump2__
-                0x000004c0                . = ALIGN (0x2)
+ .text.main     0x0000047c       0x64 main.o
+                0x0000047c                main
+ .text.libgcc   0x000004e0       0x12 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
+                0x000004e0                __tablejump2__
+                0x000004f2                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000004c0        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x000004c0                _exit
-                0x000004c0                exit
+ .fini9         0x000004f2        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x000004f2                _exit
+                0x000004f2                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -356,11 +357,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000004c0        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x000004f2        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x000004c4                _etext = .
+                0x000004f6                _etext = .
 
-.data           0x00800100        0x4 load address 0x000004c4
+.data           0x00800100        0x4 load address 0x000004f6
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -395,8 +396,8 @@ END GROUP
  COMMON         0x0080010f        0x2 main.o
                 0x0080010f                tasks
                 0x00800111                PROVIDE (__bss_end, .)
-                0x000004c4                __data_load_start = LOADADDR (.data)
-                0x000004c8                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000004f6                __data_load_start = LOADADDR (.data)
+                0x000004fa                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800111        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -475,20 +476,20 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xbaa
+.debug_info     0x00000000      0xbc0
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x792 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
- .debug_info    0x00000792      0x418 main.o
+ .debug_info    0x00000792      0x42e main.o
 
-.debug_abbrev   0x00000000      0x939
+.debug_abbrev   0x00000000      0x94a
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x729 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
- .debug_abbrev  0x00000729      0x210 main.o
+ .debug_abbrev  0x00000729      0x221 main.o
 
-.debug_line     0x00000000      0x476
+.debug_line     0x00000000      0x4a6
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x16a E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
- .debug_line    0x0000016a      0x30c main.o
+ .debug_line    0x0000016a      0x33c main.o
 
 .debug_frame    0x00000000      0x11c
  *(.debug_frame)
@@ -500,9 +501,9 @@ END GROUP
  .debug_str     0x00000296      0x288 main.o
                                 0x2cc (size before relaxing)
 
-.debug_loc      0x00000000      0x3c9
+.debug_loc      0x00000000      0x42f
  *(.debug_loc)
- .debug_loc     0x00000000      0x3c9 main.o
+ .debug_loc     0x00000000      0x42f main.o
 
 .debug_macinfo
  *(.debug_macinfo)
