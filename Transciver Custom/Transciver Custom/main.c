@@ -36,7 +36,6 @@ int TickFct_Leader(int state) {
 		
 			data = 0x00;
 			Tstate = 0;
-			//PORTA = 0x03;
 			
 			
 			if(Idata)
@@ -65,7 +64,6 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case Store:
-			//PORTA = 0x03;
 			if(Timer(4))
 			{
 				if(Tstate < InstructLength)
@@ -109,12 +107,12 @@ int TickFct_Leader(int state) {
 				//	10  -  sync request
 				//	11  -  sync response
 				
-				if((data & 0xC0) == 0x00)
+				if(((data & 0xC0) == 0x00) && ((data & 0x03) == ID) )// 00
 				{
 					data = (0x40 | ID);
 					state = StartSend;
 				}
-				else if((data & 0xC0) == 0x80)
+				else if((data & 0xC0) == 0x80) // 10
 				{
 					data = (0xC0 | ID);
 					state = StartSend;
@@ -174,9 +172,11 @@ int TickFct_Leader(int state) {
 
 int main(void)
 {
-	DDRA = 0xFF; PORTA = 0x00;
+	DDRB = 0xFF; PORTB = 0x00; // ID LED's
+	DDRD = 0xFE; PORTD = 0x01; // RF Input and Output
+	DDRA = 0x00; PORTA = 0xFF; // Temp Resistor
 	
-	DDRD = 0xFE; PORTD = 0x01;
+	PORTB = ID;
 	
 	//Set_Clock(500);
 	tasksNum = 1;
