@@ -12,6 +12,7 @@
 #define Idata (((PINA & 0x01)) == 0x01)
 #define Gdata (PINA)
 #define Odata (PORTD)
+#define LEDOUT PORTB
 
 enum L_States { Idle, Check, Store, EndGet, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Demo, Prin};
 	
@@ -44,12 +45,12 @@ int TickFct_Leader(int state) {
 			//data = 'A';
 			//data = 'z';
 			Tstate = 0;
-			PORTB = 0x00;
+			LEDOUT = 0x00;
 			
-			//PORTB = data;
+			//LEDOUT = data;
 			
 			
-			/*
+			///*
 			if(Idata)
 			{
 				if(Timer(1))
@@ -59,10 +60,10 @@ int TickFct_Leader(int state) {
 				
 			}//*/
 			
-			///*
+			/*
 			if(Timer(4))
 			{
-				data = 0x13;
+				data = 0x65	;
 				state = StartSend;
 			} //*/
 		break;
@@ -108,18 +109,18 @@ int TickFct_Leader(int state) {
 		case EndGet:
 			if(Timer(4))
 			{
-				PORTB = data;
+				LEDOUT = data;
 				if(Idata)
 				{
 					//state = CheckTask;
-					//PORTB = data;
+					//LEDOUT = data;
 					state = Prin;
 					
 				}
 				else
 				{
 					state = Idle;
-					data = 0xFF;
+					data = 0x00;
 				}
 			}
 			
@@ -230,8 +231,8 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case Prin:
-			PORTB = data;
-			if(Timer(2000))
+			LEDOUT = data;
+			if(Timer(800))
 			{
 				state = Idle;
 			}
@@ -249,13 +250,13 @@ int TickFct_Leader(int state) {
 
 int main(void)
 {
-	DDRB = 0xFF; PORTB = 0x00; // ID LED's
+	DDRB = 0xFF; LEDOUT = 0x00; // ID LED's
 	DDRD = 0xFF; PORTD = 0x00; // RF Input and Output
 	DDRA = 0x00; PORTA = 0xFF; // Temp Resistor
 	
 	//DDRC = 0xFF; PORTC = 0x00; // ID LED's
 	
-	//PORTB = ID;
+	//LEDOUT = ID;
 	
 	//Set_Clock(500);
 	tasksNum = 1;

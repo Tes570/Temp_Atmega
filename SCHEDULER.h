@@ -63,10 +63,15 @@ void TimerOn() {
 
 	// AVR output compare register OCR1A.
 	//OCR1A 	= 62;	// Timer interrupt will be generated when TCNT1==OCR1A
-	//OCR1A 	= 1250;	// Timer interrupt will be generated when TCNT1==OCR1A
+	//OCR1A 	= 125;	// Timer interrupt will be generated when TCNT1==OCR1A
 	//OCR1A 	= 6250;	// Timer interrupt will be generated when TCNT1==OCR1A
 
 	OCR1A 	= 7;	// Timer interrupt will be generated when TCNT1==OCR1A
+	//7.8125 for a 16 KHz program clock.
+	//7  is a 17.857 KHz
+	
+	
+	//OCR1A 	= 15;	// Timer interrupt will be generated when TCNT1==OCR1A
 	//7.8125 for a 16 KHz program clock.
 
 	// We want a 1 ms tick. 0.001 s * 125,000 ticks/s = 125
