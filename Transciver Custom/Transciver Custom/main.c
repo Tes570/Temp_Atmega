@@ -14,7 +14,7 @@
 #define Odata (PORTD)
 #define LEDOUT PORTB
 
-enum L_States { Idle, Check, Store, EndGet, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Demo, Prin};
+enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Demo, Prin};
 	
 const int InstructLength = 8;
 const char ID = 0x01; // starts at 0x01. Cannot be 0.
@@ -92,39 +92,26 @@ int TickFct_Leader(int state) {
 				{
 					if(Idata)
 					{
-						data += ((0x80 >> (7 - Tstate)));// | data;
+						data = ((0x01 << (Tstate))) | data;
 					}
 					
 					++Tstate;
 					
 				}
-				else
+				else if(Idata)
 				{
 					
-					state = EndGet;
-				}
-			}
-		break;
-		
-		case EndGet:
-			if(Timer(4))
-			{
-				LEDOUT = data;
-				if(Idata)
-				{
-					//state = CheckTask;
-					//LEDOUT = data;
 					state = Prin;
-					
+					LEDOUT = data;
 				}
 				else
 				{
 					state = Idle;
-					data = 0x00;
 				}
 			}
-			
 		break;
+		
+		
 		
 		case CheckTask:
 		
@@ -231,7 +218,7 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case Prin:
-			LEDOUT = data;
+			//LEDOUT = data;
 			if(Timer(800))
 			{
 				state = Idle;
