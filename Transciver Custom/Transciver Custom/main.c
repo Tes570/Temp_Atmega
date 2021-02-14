@@ -9,23 +9,32 @@
 #include "..//..//CONTROL.H"
 #include <avr/io.h>
 
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <string.h>
+#include <stdio.h>
+
 #define Idata (((PINA & 0x01)) == 0x01)
 #define Gdata (PINA)
 #define Odata (PORTD)
 #define LEDOUT PORTB
 
-enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Demo, Prin};
+enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Gtemp};
 	
-const int InstructLength = 8;
-const char ID = 0x01; // starts at 0x01. Cannot be 0.
+const int InstructLength = 10;
+const char ID = 0x0001; // starts at 0x01. Cannot be 0.
 	
 int Tstate = 0;
-unsigned char temp = 0x02;
+unsigned short temp = 0x0002;
 unsigned long Total = 0;
-char data = 0x00;
+short data = 0x0000;
 
 
 void Set_Clock(int tic);
+void delay_ms(int miliSec); //for 8 Mhz crystal
+void setupADC();
+int ADC_read(int ch);
+
 	
 int TickFct_Leader(int state) {
 	
@@ -34,7 +43,7 @@ int TickFct_Leader(int state) {
 	switch(state) {
 		case -1:
 			state = Idle;
-			Odata = 0x00;
+			Odata = 0x0000;
 		break;
 		
 		case Idle:
@@ -45,7 +54,7 @@ int TickFct_Leader(int state) {
 			//data = 'A';
 			//data = 'z';
 			Tstate = 0;
-			LEDOUT = 0x00;
+			//LEDOUT = 0x0000;
 			
 			//LEDOUT = data;
 			
@@ -63,7 +72,7 @@ int TickFct_Leader(int state) {
 			/*
 			if(Timer(4))
 			{
-				data = 0x65	;
+				data = 0x0063;
 				state = StartSend;
 			} //*/
 		break;
@@ -74,7 +83,7 @@ int TickFct_Leader(int state) {
 			{
 				if(Idata)
 				{
-					data = 0x00;
+					data = 0x0000;
 					state = Store;
 					Tstate = 0;
 				}
@@ -92,7 +101,7 @@ int TickFct_Leader(int state) {
 				{
 					if(Idata)
 					{
-						data = ((0x01 << (Tstate))) | data;
+						data = ((0x0001 << (Tstate))) | data;
 					}
 					
 					++Tstate;
@@ -101,11 +110,12 @@ int TickFct_Leader(int state) {
 				else if(Idata)
 				{
 					
-					state = Prin;
-					LEDOUT = data;
+					state = CheckTask;
+					//LEDOUT = data;
 				}
 				else
 				{
+					data = 0x0000;
 					state = Idle;
 				}
 			}
@@ -126,14 +136,14 @@ int TickFct_Leader(int state) {
 				//	10  -  sync request
 				//	11  -  sync response
 				
-				if(((data & 0xC0) == 0x00) && ((data & 0x03) == ID) )// 00
+				if(((data & 0x0300) == 0x0000) && ((data & 0x0003) == ID) )// 00
 				{
-					data = (0x40 | ID);
-					state = StartSend;
+					//data = (0x0300 | ID);
+					state = Gtemp;
 				}
-				else if((data & 0xC0) == 0x80) // 10
+				else if(((data & 0x0300) == 0x0200) && ((PINA & 0x04) == 0x04))// 10
 				{
-					data = (0xC0 | ID);
+					data = (0x0300 | ID);
 					state = StartSend;
 				}
 			}
@@ -143,7 +153,7 @@ int TickFct_Leader(int state) {
 		
 		case StartSend:
 			
-			Odata = 0x01;
+			Odata = 0x0001;
 			if(Timer(4))
 			{
 				if(Tstate < 1)
@@ -156,13 +166,13 @@ int TickFct_Leader(int state) {
 					Tstate = 0;
 					//Odata = 0x00;
 					
-					if(((data) & 0x01) == 0x01)
+					if(((data) & 0x0001) == 0x0001)
 					{
-						Odata = 0x01;
+						Odata = 0x0001;
 					}
 					else
 					{
-						Odata = 0x00;
+						Odata = 0x0000;
 					}
 				}
 			}
@@ -179,13 +189,13 @@ int TickFct_Leader(int state) {
 				{
 					++Tstate;
 					//Odata = (data >> (Tstate)) & 0x02;
-					if(((data >> (Tstate)) & 0x01) == 0x01)
+					if(((data >> (Tstate)) & 0x0001) == 0x0001)
 					{
-						Odata = 0x01;
+						Odata = 0x0001;
 					}
 					else
 					{
-						Odata = 0x00;
+						Odata = 0x0000;
 					}
 					
 					
@@ -201,28 +211,22 @@ int TickFct_Leader(int state) {
 		break;
 		
 		case EndSend:
-			Odata = 0x01;
+			Odata = 0x0001;
 			if(Timer(4))
 			{
-				state = Demo;
-				Odata = 0x00;
+				state = Idle;
+				Odata = 0x0000;
 			}
 		break;
 		
-		case Demo:
-			if(Timer(200))
-			{
-				
-				state = Idle;
-			}
-		break;
 		
-		case Prin:
-			//LEDOUT = data;
-			if(Timer(800))
-			{
-				state = Idle;
-			}
+		
+		case Gtemp:
+			
+			//data = ((0x0100 | ID) | ADC_read(1));
+			data = 0x0055;
+			state = StartSend;
+		
 		break;
 		
 		
@@ -243,7 +247,12 @@ int main(void)
 	
 	//DDRC = 0xFF; PORTC = 0x00; // ID LED's
 	
-	//LEDOUT = ID;
+	setupADC();
+	//ADC_read();
+	
+	//unsigned short x =ADC_read(1);
+	
+	LEDOUT = ID;
 	
 	//Set_Clock(500);
 	tasksNum = 1;
@@ -266,3 +275,41 @@ int main(void)
     }
 }
 
+
+
+void setupADC()
+{
+	ADMUX=(1<<REFS0);
+	ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+
+}
+int ADC_read(int ch)
+{
+	// select the corresponding channel 0~7
+	//int ADC_result=0;
+	ch &= 0b00000111;  // AND operation with 7
+	ADMUX = (ADMUX & 0xF8)|ch;
+
+	// start single conversion
+	// write '1' to ADSC
+	ADCSRA |= (1<<ADSC);
+
+	// wait for conversion to complete
+	// ADSC becomes '0' again
+	
+	while(ADCSRA & (1<<ADSC));
+	//ADC_result=ADCL;
+	//ADC_result |=(ADC<<8);
+	return (ADC);
+}
+
+
+void delay_ms(int miliSec) //for 8 Mhz crystal
+{
+	int i,j;
+	for(i=0;i<miliSec;i++)
+	for(j=0;j<775;j++)
+	{
+		asm("nop");
+	}
+}
