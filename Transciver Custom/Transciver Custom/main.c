@@ -25,8 +25,8 @@ const int InstructLength = 10;
 const char ID = 0x0003; // starts at 0x01. Cannot be 0.
 	
 int Tstate = 0;
-unsigned short temp = 0x0002;
-unsigned long Total = 0;
+//unsigned short temp = 0x0002;
+//unsigned long Total = 0;
 short data = 0x0000;
 short TempTem;
 
