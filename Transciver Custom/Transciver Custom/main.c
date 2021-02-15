@@ -138,8 +138,8 @@ int TickFct_Leader(int state) {
 			}
 			else
 			{
-				//	00  -  temp request
-				//	01  -  temp response
+				//	00  -  temp response
+				//	01  -  temp request
 				//	10  -  sync request
 				//	11  -  sync response
 				
@@ -152,16 +152,12 @@ int TickFct_Leader(int state) {
 				//if(((data & 0x0300) == 0x00) && ((data & (ID ^ 0x03FF)) == 0x00) )// 00
 				//if(true)
 				
-				if((data & 0x0303) == ID)
+				if((((data) & 0x0103) == (0x0100 | ID)))
 				{
 					//LEDOUT = ID;
 					//data = (0x0300 & data);
 					state = Gtemp;
-					//data = ID;
-					//data = (data ^ 0x03FF);
-					//data = !data;
-					//data = 0x0201;
-					//state = StartSend;
+					
 					
 				}
 				else if(((data & 0x0300) == 0x0200) && ((PINA & 0x04) == 0x04))// 10
@@ -246,8 +242,8 @@ int TickFct_Leader(int state) {
 		
 		case Gtemp:
 			TempTem = ADC_read(0x01);
-			data = ((0x0100) | TempTem);
-			data = 0x0045;
+			//data = ((0x0100) | TempTem);
+			//data = 0x0045;
 			Tstate = 0;
 			state = StartSend;
 		
