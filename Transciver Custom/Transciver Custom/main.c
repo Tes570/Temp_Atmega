@@ -152,7 +152,7 @@ int TickFct_Leader(int state) {
 				//if(((data & 0x0300) == 0x00) && ((data & (ID ^ 0x03FF)) == 0x00) )// 00
 				//if(true)
 				
-				if((data & 0x0003) == ID)
+				if((data & 0x0303) == ID)
 				{
 					//LEDOUT = ID;
 					//data = (0x0300 & data);
