@@ -22,12 +22,13 @@
 enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Gtemp};
 	
 const int InstructLength = 10;
-const char ID = 0x0001; // starts at 0x01. Cannot be 0.
+const char ID = 0x0003; // starts at 0x01. Cannot be 0.
 	
 int Tstate = 0;
 unsigned short temp = 0x0002;
 unsigned long Total = 0;
 short data = 0x0000;
+short TempTem;
 
 
 void Set_Clock(int tic);
@@ -99,6 +100,7 @@ int TickFct_Leader(int state) {
 			{
 				if(Tstate < InstructLength)
 				{
+					
 					if(Idata)
 					{
 						data = ((0x0001 << (Tstate))) | data;
@@ -111,7 +113,11 @@ int TickFct_Leader(int state) {
 				{
 					
 					state = CheckTask;
-					//LEDOUT = data;
+					//state = StartSend;
+					Tstate = 0;
+					
+					//LEDOUT = (data >> 2);
+					//LEDOUT = ID;
 				}
 				else
 				{
@@ -125,6 +131,7 @@ int TickFct_Leader(int state) {
 		
 		case CheckTask:
 		
+			Tstate = 0;
 			if(data == 0x00)
 			{
 				state = Idle;
@@ -136,10 +143,26 @@ int TickFct_Leader(int state) {
 				//	10  -  sync request
 				//	11  -  sync response
 				
-				if(((data & 0x0300) == 0x0000) && ((data & 0x0003) == ID) )// 00
+				
+				//if(((data & 0x0300) == 0x00) && ((data & 0x03) == ID) )// 00
+				//if(((data & 0x0300) == 0x00))
+				//if((data & (0x0003 ^ 0x03FF)) == 0x00)
+				//if(true)
+				//if(((data & 0x0300) == 0x00) && ((data & (0x03FC)) == 0x00) )// 00
+				//if(((data & 0x0300) == 0x00) && ((data & (ID ^ 0x03FF)) == 0x00) )// 00
+				//if(true)
+				
+				if((data & 0x0003) == ID)
 				{
-					//data = (0x0300 | ID);
+					//LEDOUT = ID;
+					//data = (0x0300 & data);
 					state = Gtemp;
+					//data = ID;
+					//data = (data ^ 0x03FF);
+					//data = !data;
+					//data = 0x0201;
+					//state = StartSend;
+					
 				}
 				else if(((data & 0x0300) == 0x0200) && ((PINA & 0x04) == 0x04))// 10
 				{
@@ -187,8 +210,8 @@ int TickFct_Leader(int state) {
 				
 				if(Tstate < InstructLength)
 				{
-					++Tstate;
 					//Odata = (data >> (Tstate)) & 0x02;
+					++Tstate;
 					if(((data >> (Tstate)) & 0x0001) == 0x0001)
 					{
 						Odata = 0x0001;
@@ -205,7 +228,7 @@ int TickFct_Leader(int state) {
 			
 			if(Tstate >= InstructLength)
 			{
-				
+				Tstate = 0;
 				state = EndSend;
 			}
 		break;
@@ -222,9 +245,10 @@ int TickFct_Leader(int state) {
 		
 		
 		case Gtemp:
-			
-			//data = ((0x0100 | ID) | ADC_read(1));
-			data = 0x0055;
+			TempTem = ADC_read(0x01);
+			data = ((0x0100) | TempTem);
+			data = 0x0045;
+			Tstate = 0;
 			state = StartSend;
 		
 		break;
@@ -247,7 +271,7 @@ int main(void)
 	
 	//DDRC = 0xFF; PORTC = 0x00; // ID LED's
 	
-	setupADC();
+	//setupADC();
 	//ADC_read();
 	
 	//unsigned short x =ADC_read(1);
