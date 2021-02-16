@@ -3,31 +3,31 @@ Transciver Custom.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000004  00800100  000005a2  00000636  2**0
+  0 .data         00000004  00800100  00000582  00000616  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000005a2  00000000  00000000  00000094  2**1
+  1 .text         00000582  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000010  00800104  00800104  0000063a  2**0
+  2 .bss          00000010  00800104  00800104  0000061a  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000063a  2**0
+  3 .comment      00000030  00000000  00000000  0000061a  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000066c  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000064c  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000070  00000000  00000000  000006ac  2**0
+  5 .debug_aranges 00000068  00000000  00000000  0000068c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000c48  00000000  00000000  0000071c  2**0
+  6 .debug_info   00000bcf  00000000  00000000  000006f4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000009c3  00000000  00000000  00001364  2**0
+  7 .debug_abbrev 0000097a  00000000  00000000  000012c3  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000005c2  00000000  00000000  00001d27  2**0
+  8 .debug_line   00000585  00000000  00000000  00001c3d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000014c  00000000  00000000  000022ec  2**2
+  9 .debug_frame  0000013c  00000000  00000000  000021c4  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000547  00000000  00000000  00002438  2**0
+ 10 .debug_str    00000536  00000000  00000000  00002300  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000004df  00000000  00000000  0000297f  2**0
+ 11 .debug_loc    00000446  00000000  00000000  00002836  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000060  00000000  00000000  00002e5e  2**0
+ 12 .debug_ranges 00000058  00000000  00000000  00002c7c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -103,17 +103,17 @@ Disassembly of section .text:
   86:	00 00       	nop
   88:	29 c0       	rjmp	.+82     	; 0xdc <__bad_interrupt>
   8a:	00 00       	nop
-  8c:	d0 01       	movw	r26, r0
-  8e:	d4 01       	movw	r26, r8
-  90:	e0 01       	movw	r28, r0
-  92:	f3 01       	movw	r30, r6
-  94:	2a 02       	muls	r18, r26
-  96:	4d 02       	muls	r20, r29
-  98:	73 02       	muls	r23, r19
-  9a:	a1 02       	muls	r26, r17
-  9c:	c2 02       	muls	r28, r18
-  9e:	c2 02       	muls	r28, r18
-  a0:	ac 02       	muls	r26, r28
+  8c:	87 01       	movw	r16, r14
+  8e:	8b 01       	movw	r16, r22
+  90:	9e 01       	movw	r18, r28
+  92:	b1 01       	movw	r22, r2
+  94:	ec 01       	movw	r28, r24
+  96:	11 02       	muls	r17, r17
+  98:	37 02       	muls	r19, r23
+  9a:	65 02       	muls	r22, r21
+  9c:	7f 02       	muls	r23, r31
+  9e:	7f 02       	muls	r23, r31
+  a0:	70 02       	muls	r23, r16
 
 000000a2 <__ctors_end>:
   a2:	11 24       	eor	r1, r1
@@ -127,7 +127,7 @@ Disassembly of section .text:
   ae:	11 e0       	ldi	r17, 0x01	; 1
   b0:	a0 e0       	ldi	r26, 0x00	; 0
   b2:	b1 e0       	ldi	r27, 0x01	; 1
-  b4:	e2 ea       	ldi	r30, 0xA2	; 162
+  b4:	e2 e8       	ldi	r30, 0x82	; 130
   b6:	f5 e0       	ldi	r31, 0x05	; 5
   b8:	00 e0       	ldi	r16, 0x00	; 0
   ba:	0b bf       	out	0x3b, r16	; 59
@@ -151,19 +151,19 @@ Disassembly of section .text:
   d2:	a4 31       	cpi	r26, 0x14	; 20
   d4:	b2 07       	cpc	r27, r18
   d6:	e1 f7       	brne	.-8      	; 0xd0 <.do_clear_bss_loop>
-  d8:	0e d1       	rcall	.+540    	; 0x2f6 <main>
-  da:	61 c2       	rjmp	.+1218   	; 0x59e <_exit>
+  d8:	16 d2       	rcall	.+1068   	; 0x506 <main>
+  da:	51 c2       	rjmp	.+1186   	; 0x57e <_exit>
 
 000000dc <__bad_interrupt>:
   dc:	91 cf       	rjmp	.-222    	; 0x0 <__vectors>
 
 000000de <TimerISR>:
+}
 
-
-void setupADC()
+bool Start()
 {
-	ADMUX=(1<<REFS0);
-	ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+	return time == 0;
+}
   de:	cf 92       	push	r12
   e0:	df 92       	push	r13
   e2:	ef 92       	push	r14
@@ -332,7 +332,7 @@ void setupADC()
 0000026e <TimerOn>:
  26e:	8b e0       	ldi	r24, 0x0B	; 11
  270:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7e0081>
- 274:	87 e0       	ldi	r24, 0x07	; 7
+ 274:	8d e7       	ldi	r24, 0x7D	; 125
  276:	90 e0       	ldi	r25, 0x00	; 0
  278:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <__TEXT_REGION_LENGTH__+0x7e0089>
  27c:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7e0088>
@@ -379,561 +379,318 @@ void setupADC()
  2f2:	80 e0       	ldi	r24, 0x00	; 0
  2f4:	08 95       	ret
 
-000002f6 <main>:
+000002f6 <TickFct_Leader>:
  2f6:	cf 93       	push	r28
  2f8:	df 93       	push	r29
- 2fa:	cd b7       	in	r28, 0x3d	; 61
- 2fc:	de b7       	in	r29, 0x3e	; 62
- 2fe:	2b 97       	sbiw	r28, 0x0b	; 11
- 300:	0f b6       	in	r0, 0x3f	; 63
- 302:	f8 94       	cli
- 304:	de bf       	out	0x3e, r29	; 62
- 306:	0f be       	out	0x3f, r0	; 63
- 308:	cd bf       	out	0x3d, r28	; 61
- 30a:	8f ef       	ldi	r24, 0xFF	; 255
- 30c:	84 b9       	out	0x04, r24	; 4
- 30e:	15 b8       	out	0x05, r1	; 5
- 310:	8a b9       	out	0x0a, r24	; 10
- 312:	1b b8       	out	0x0b, r1	; 11
- 314:	11 b8       	out	0x01, r1	; 1
- 316:	82 b9       	out	0x02, r24	; 2
- 318:	83 e0       	ldi	r24, 0x03	; 3
- 31a:	85 b9       	out	0x05, r24	; 5
- 31c:	81 e0       	ldi	r24, 0x01	; 1
- 31e:	80 93 0b 01 	sts	0x010B, r24	; 0x80010b <tasksNum>
- 322:	ce 01       	movw	r24, r28
- 324:	01 96       	adiw	r24, 0x01	; 1
- 326:	90 93 11 01 	sts	0x0111, r25	; 0x800111 <tasks+0x1>
- 32a:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <tasks>
- 32e:	19 82       	std	Y+1, r1	; 0x01
- 330:	81 e0       	ldi	r24, 0x01	; 1
- 332:	90 e0       	ldi	r25, 0x00	; 0
- 334:	a0 e0       	ldi	r26, 0x00	; 0
- 336:	b0 e0       	ldi	r27, 0x00	; 0
- 338:	8a 83       	std	Y+2, r24	; 0x02
- 33a:	9b 83       	std	Y+3, r25	; 0x03
- 33c:	ac 83       	std	Y+4, r26	; 0x04
- 33e:	bd 83       	std	Y+5, r27	; 0x05
- 340:	8e 83       	std	Y+6, r24	; 0x06
- 342:	9f 83       	std	Y+7, r25	; 0x07
- 344:	a8 87       	std	Y+8, r26	; 0x08
- 346:	b9 87       	std	Y+9, r27	; 0x09
- 348:	84 ec       	ldi	r24, 0xC4	; 196
- 34a:	91 e0       	ldi	r25, 0x01	; 1
- 34c:	9b 87       	std	Y+11, r25	; 0x0b
- 34e:	8a 87       	std	Y+10, r24	; 0x0a
- 350:	61 e0       	ldi	r22, 0x01	; 1
- 352:	70 e0       	ldi	r23, 0x00	; 0
- 354:	80 e0       	ldi	r24, 0x00	; 0
- 356:	90 e0       	ldi	r25, 0x00	; 0
- 358:	79 df       	rcall	.-270    	; 0x24c <TimerSet>
- 35a:	89 df       	rcall	.-238    	; 0x26e <TimerOn>
- 35c:	ff cf       	rjmp	.-2      	; 0x35c <main+0x66>
-
-0000035e <ADC_read>:
-int ADC_read(int ch)
-{
-	// select the corresponding channel 0~7
-	//int ADC_result=0;
-	ch &= 0b00000111;  // AND operation with 7
-	ADMUX = (ADMUX & 0xF8)|ch;
- 35e:	ec e7       	ldi	r30, 0x7C	; 124
- 360:	f0 e0       	ldi	r31, 0x00	; 0
- 362:	20 81       	ld	r18, Z
- 364:	28 7f       	andi	r18, 0xF8	; 248
- 366:	87 70       	andi	r24, 0x07	; 7
- 368:	99 27       	eor	r25, r25
- 36a:	82 2b       	or	r24, r18
- 36c:	80 83       	st	Z, r24
-
-	// start single conversion
-	// write '1' to ADSC
-	ADCSRA |= (1<<ADSC);
- 36e:	ea e7       	ldi	r30, 0x7A	; 122
- 370:	f0 e0       	ldi	r31, 0x00	; 0
- 372:	80 81       	ld	r24, Z
- 374:	80 64       	ori	r24, 0x40	; 64
- 376:	80 83       	st	Z, r24
-
-	// wait for conversion to complete
-	// ADSC becomes '0' again
-	
-	while(ADCSRA & (1<<ADSC));
- 378:	80 81       	ld	r24, Z
- 37a:	86 fd       	sbrc	r24, 6
- 37c:	fd cf       	rjmp	.-6      	; 0x378 <ADC_read+0x1a>
-	//ADC_result=ADCL;
-	//ADC_result |=(ADC<<8);
-	return (ADC);
- 37e:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7e0078>
- 382:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
-}
- 386:	08 95       	ret
-
-00000388 <TickFct_Leader>:
-void delay_ms(int miliSec); //for 8 Mhz crystal
-void setupADC();
-int ADC_read(int ch);
-
-	
-int TickFct_Leader(int state) {
- 388:	cf 93       	push	r28
- 38a:	df 93       	push	r29
- 38c:	ec 01       	movw	r28, r24
-	
-	
-	
-	switch(state) {
- 38e:	fc 01       	movw	r30, r24
- 390:	31 96       	adiw	r30, 0x01	; 1
- 392:	eb 30       	cpi	r30, 0x0B	; 11
- 394:	f1 05       	cpc	r31, r1
- 396:	08 f0       	brcs	.+2      	; 0x39a <TickFct_Leader+0x12>
- 398:	f5 c0       	rjmp	.+490    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
- 39a:	ea 5b       	subi	r30, 0xBA	; 186
- 39c:	ff 4f       	sbci	r31, 0xFF	; 255
- 39e:	f6 c0       	rjmp	.+492    	; 0x58c <__tablejump2__>
-		case -1:
-			state = Idle;
-			Odata = 0x0000;
- 3a0:	1b b8       	out	0x0b, r1	; 11
-	
-	
-	
-	switch(state) {
-		case -1:
-			state = Idle;
- 3a2:	c0 e0       	ldi	r28, 0x00	; 0
- 3a4:	d0 e0       	ldi	r29, 0x00	; 0
-			Odata = 0x0000;
-		break;
- 3a6:	ee c0       	rjmp	.+476    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			//data = 0x02;
-			//data = 0x50;
-			//data = 0x12;
-			//data = 'A';
-			//data = 'z';
-			Tstate = 0;
- 3a8:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
- 3ac:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
-			
-			//LEDOUT = data;
-			
-			
-			///*
-			if(Idata)
+ 2fa:	ec 01       	movw	r28, r24
+ 2fc:	fc 01       	movw	r30, r24
+ 2fe:	31 96       	adiw	r30, 0x01	; 1
+ 300:	eb 30       	cpi	r30, 0x0B	; 11
+ 302:	f1 05       	cpc	r31, r1
+ 304:	08 f0       	brcs	.+2      	; 0x308 <TickFct_Leader+0x12>
+ 306:	fb c0       	rjmp	.+502    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 308:	ea 5b       	subi	r30, 0xBA	; 186
+ 30a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 30c:	2f c1       	rjmp	.+606    	; 0x56c <__tablejump2__>
+ 30e:	1b b8       	out	0x0b, r1	; 11
+ 310:	c0 e0       	ldi	r28, 0x00	; 0
+ 312:	d0 e0       	ldi	r29, 0x00	; 0
+ 314:	f4 c0       	rjmp	.+488    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 316:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
+ 31a:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
+ 31e:	84 e6       	ldi	r24, 0x64	; 100
+ 320:	90 e0       	ldi	r25, 0x00	; 0
+ 322:	c9 df       	rcall	.-110    	; 0x2b6 <Timer>
+ 324:	88 23       	and	r24, r24
+ 326:	09 f4       	brne	.+2      	; 0x32a <TickFct_Leader+0x34>
+ 328:	ea c0       	rjmp	.+468    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 32a:	85 e3       	ldi	r24, 0x35	; 53
+ 32c:	91 e0       	ldi	r25, 0x01	; 1
+ 32e:	90 93 06 01 	sts	0x0106, r25	; 0x800106 <data+0x1>
+ 332:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <data>
+ 336:	c4 e0       	ldi	r28, 0x04	; 4
+ 338:	d0 e0       	ldi	r29, 0x00	; 0
+ 33a:	e1 c0       	rjmp	.+450    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 33c:	84 e0       	ldi	r24, 0x04	; 4
+ 33e:	90 e0       	ldi	r25, 0x00	; 0
+ 340:	ba df       	rcall	.-140    	; 0x2b6 <Timer>
+ 342:	88 23       	and	r24, r24
+ 344:	09 f4       	brne	.+2      	; 0x348 <TickFct_Leader+0x52>
+ 346:	db c0       	rjmp	.+438    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 348:	00 9b       	sbis	0x00, 0	; 0
+ 34a:	d1 c0       	rjmp	.+418    	; 0x4ee <__LOCK_REGION_LENGTH__+0xee>
+ 34c:	10 92 06 01 	sts	0x0106, r1	; 0x800106 <data+0x1>
+ 350:	10 92 05 01 	sts	0x0105, r1	; 0x800105 <data>
+ 354:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
+ 358:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
+ 35c:	c2 e0       	ldi	r28, 0x02	; 2
+ 35e:	d0 e0       	ldi	r29, 0x00	; 0
+ 360:	ce c0       	rjmp	.+412    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 362:	84 e0       	ldi	r24, 0x04	; 4
+ 364:	90 e0       	ldi	r25, 0x00	; 0
+ 366:	a7 df       	rcall	.-178    	; 0x2b6 <Timer>
+ 368:	88 23       	and	r24, r24
+ 36a:	09 f4       	brne	.+2      	; 0x36e <TickFct_Leader+0x78>
+ 36c:	c8 c0       	rjmp	.+400    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 36e:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
+ 372:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
+ 376:	8a 30       	cpi	r24, 0x0A	; 10
+ 378:	91 05       	cpc	r25, r1
+ 37a:	d4 f4       	brge	.+52     	; 0x3b0 <TickFct_Leader+0xba>
+ 37c:	00 9b       	sbis	0x00, 0	; 0
+ 37e:	12 c0       	rjmp	.+36     	; 0x3a4 <TickFct_Leader+0xae>
+ 380:	21 e0       	ldi	r18, 0x01	; 1
+ 382:	30 e0       	ldi	r19, 0x00	; 0
+ 384:	08 2e       	mov	r0, r24
+ 386:	02 c0       	rjmp	.+4      	; 0x38c <TickFct_Leader+0x96>
+ 388:	22 0f       	add	r18, r18
+ 38a:	33 1f       	adc	r19, r19
+ 38c:	0a 94       	dec	r0
+ 38e:	e2 f7       	brpl	.-8      	; 0x388 <TickFct_Leader+0x92>
+ 390:	40 91 05 01 	lds	r20, 0x0105	; 0x800105 <data>
+ 394:	50 91 06 01 	lds	r21, 0x0106	; 0x800106 <data+0x1>
+ 398:	24 2b       	or	r18, r20
+ 39a:	35 2b       	or	r19, r21
+ 39c:	30 93 06 01 	sts	0x0106, r19	; 0x800106 <data+0x1>
+ 3a0:	20 93 05 01 	sts	0x0105, r18	; 0x800105 <data>
+ 3a4:	01 96       	adiw	r24, 0x01	; 1
+ 3a6:	90 93 08 01 	sts	0x0108, r25	; 0x800108 <Tstate+0x1>
+ 3aa:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <Tstate>
+ 3ae:	a7 c0       	rjmp	.+334    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
  3b0:	00 9b       	sbis	0x00, 0	; 0
- 3b2:	e8 c0       	rjmp	.+464    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			{
-				if(Timer(1))
- 3b4:	81 e0       	ldi	r24, 0x01	; 1
- 3b6:	90 e0       	ldi	r25, 0x00	; 0
- 3b8:	7e df       	rcall	.-260    	; 0x2b6 <Timer>
-	
-	
-	
-	switch(state) {
-		case -1:
-			state = Idle;
- 3ba:	c8 2f       	mov	r28, r24
- 3bc:	d0 e0       	ldi	r29, 0x00	; 0
- 3be:	e2 c0       	rjmp	.+452    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			} //*/
-		break;
-		
-		case Check:
-			
-			if(Timer(4))
- 3c0:	84 e0       	ldi	r24, 0x04	; 4
- 3c2:	90 e0       	ldi	r25, 0x00	; 0
- 3c4:	78 df       	rcall	.-272    	; 0x2b6 <Timer>
- 3c6:	88 23       	and	r24, r24
- 3c8:	09 f4       	brne	.+2      	; 0x3cc <TickFct_Leader+0x44>
- 3ca:	dc c0       	rjmp	.+440    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			{
-				if(Idata)
- 3cc:	00 9b       	sbis	0x00, 0	; 0
- 3ce:	d2 c0       	rjmp	.+420    	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-				{
-					data = 0x0000;
- 3d0:	10 92 06 01 	sts	0x0106, r1	; 0x800106 <data+0x1>
- 3d4:	10 92 05 01 	sts	0x0105, r1	; 0x800105 <data>
-					state = Store;
-					Tstate = 0;
+ 3b2:	07 c0       	rjmp	.+14     	; 0x3c2 <TickFct_Leader+0xcc>
+ 3b4:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
+ 3b8:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
+ 3bc:	c3 e0       	ldi	r28, 0x03	; 3
+ 3be:	d0 e0       	ldi	r29, 0x00	; 0
+ 3c0:	9e c0       	rjmp	.+316    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 3c2:	10 92 06 01 	sts	0x0106, r1	; 0x800106 <data+0x1>
+ 3c6:	10 92 05 01 	sts	0x0105, r1	; 0x800105 <data>
+ 3ca:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
+ 3ce:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
+ 3d2:	c0 e0       	ldi	r28, 0x00	; 0
+ 3d4:	d0 e0       	ldi	r29, 0x00	; 0
+ 3d6:	93 c0       	rjmp	.+294    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
  3d8:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
  3dc:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
-			if(Timer(4))
-			{
-				if(Idata)
-				{
-					data = 0x0000;
-					state = Store;
- 3e0:	c2 e0       	ldi	r28, 0x02	; 2
- 3e2:	d0 e0       	ldi	r29, 0x00	; 0
-				}
-			}
-		break;
-		
-		case Store:
-			if(Timer(4))
- 3e4:	cf c0       	rjmp	.+414    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
- 3e6:	84 e0       	ldi	r24, 0x04	; 4
- 3e8:	90 e0       	ldi	r25, 0x00	; 0
- 3ea:	65 df       	rcall	.-310    	; 0x2b6 <Timer>
- 3ec:	88 23       	and	r24, r24
- 3ee:	09 f4       	brne	.+2      	; 0x3f2 <TickFct_Leader+0x6a>
- 3f0:	c9 c0       	rjmp	.+402    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			{
-				if(Tstate < InstructLength)
- 3f2:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
- 3f6:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
- 3fa:	8a 30       	cpi	r24, 0x0A	; 10
- 3fc:	91 05       	cpc	r25, r1
- 3fe:	d4 f4       	brge	.+52     	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
-				{
-					
-					if(Idata)
- 400:	00 9b       	sbis	0x00, 0	; 0
- 402:	12 c0       	rjmp	.+36     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
-					{
-						data = ((0x0001 << (Tstate))) | data;
- 404:	21 e0       	ldi	r18, 0x01	; 1
- 406:	30 e0       	ldi	r19, 0x00	; 0
- 408:	08 2e       	mov	r0, r24
- 40a:	02 c0       	rjmp	.+4      	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
- 40c:	22 0f       	add	r18, r18
- 40e:	33 1f       	adc	r19, r19
- 410:	0a 94       	dec	r0
- 412:	e2 f7       	brpl	.-8      	; 0x40c <__LOCK_REGION_LENGTH__+0xc>
- 414:	40 91 05 01 	lds	r20, 0x0105	; 0x800105 <data>
- 418:	50 91 06 01 	lds	r21, 0x0106	; 0x800106 <data+0x1>
- 41c:	24 2b       	or	r18, r20
- 41e:	35 2b       	or	r19, r21
- 420:	30 93 06 01 	sts	0x0106, r19	; 0x800106 <data+0x1>
- 424:	20 93 05 01 	sts	0x0105, r18	; 0x800105 <data>
-					}
-					
-					++Tstate;
- 428:	01 96       	adiw	r24, 0x01	; 1
- 42a:	90 93 08 01 	sts	0x0108, r25	; 0x800108 <Tstate+0x1>
- 42e:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <Tstate>
- 432:	a8 c0       	rjmp	.+336    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-					
-				}
-				else if(Idata)
- 434:	00 9b       	sbis	0x00, 0	; 0
- 436:	07 c0       	rjmp	.+14     	; 0x446 <__LOCK_REGION_LENGTH__+0x46>
-				{
-					
-					state = CheckTask;
-					//state = StartSend;
-					Tstate = 0;
- 438:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
- 43c:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
-					
-				}
-				else if(Idata)
-				{
-					
-					state = CheckTask;
- 440:	c3 e0       	ldi	r28, 0x03	; 3
- 442:	d0 e0       	ldi	r29, 0x00	; 0
- 444:	9f c0       	rjmp	.+318    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-					//LEDOUT = (data >> 2);
-					//LEDOUT = ID;
-				}
-				else
-				{
-					data = 0x0000;
- 446:	10 92 06 01 	sts	0x0106, r1	; 0x800106 <data+0x1>
- 44a:	10 92 05 01 	sts	0x0105, r1	; 0x800105 <data>
-					state = Idle;
- 44e:	c0 e0       	ldi	r28, 0x00	; 0
- 450:	d0 e0       	ldi	r29, 0x00	; 0
- 452:	98 c0       	rjmp	.+304    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-		
-		
-		
-		case CheckTask:
-		
-			Tstate = 0;
- 454:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
- 458:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
-			if(data == 0x00)
- 45c:	80 91 05 01 	lds	r24, 0x0105	; 0x800105 <data>
- 460:	90 91 06 01 	lds	r25, 0x0106	; 0x800106 <data+0x1>
- 464:	00 97       	sbiw	r24, 0x00	; 0
- 466:	09 f4       	brne	.+2      	; 0x46a <__LOCK_REGION_LENGTH__+0x6a>
- 468:	88 c0       	rjmp	.+272    	; 0x57a <__LOCK_REGION_LENGTH__+0x17a>
-				//if(true)
-				//if(((data & 0x0300) == 0x00) && ((data & (0x03FC)) == 0x00) )// 00
-				//if(((data & 0x0300) == 0x00) && ((data & (ID ^ 0x03FF)) == 0x00) )// 00
-				//if(true)
-				
-				if((((data) & 0x0103) == (0x0100 | ID)))
- 46a:	9c 01       	movw	r18, r24
- 46c:	23 70       	andi	r18, 0x03	; 3
- 46e:	31 70       	andi	r19, 0x01	; 1
- 470:	23 30       	cpi	r18, 0x03	; 3
- 472:	31 40       	sbci	r19, 0x01	; 1
- 474:	09 f4       	brne	.+2      	; 0x478 <__LOCK_REGION_LENGTH__+0x78>
- 476:	84 c0       	rjmp	.+264    	; 0x580 <__LOCK_REGION_LENGTH__+0x180>
-					//data = (0x0300 & data);
-					state = Gtemp;
-					
-					
-				}
-				else if(((data & 0x0300) == 0x0200) && ((PINA & 0x04) == 0x04))// 10
- 478:	88 27       	eor	r24, r24
- 47a:	93 70       	andi	r25, 0x03	; 3
- 47c:	81 15       	cp	r24, r1
- 47e:	92 40       	sbci	r25, 0x02	; 2
- 480:	09 f0       	breq	.+2      	; 0x484 <__LOCK_REGION_LENGTH__+0x84>
- 482:	80 c0       	rjmp	.+256    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
- 484:	02 9b       	sbis	0x00, 2	; 0
- 486:	7e c0       	rjmp	.+252    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-				{
-					data = (0x0300 | ID);
- 488:	83 e0       	ldi	r24, 0x03	; 3
- 48a:	93 e0       	ldi	r25, 0x03	; 3
- 48c:	90 93 06 01 	sts	0x0106, r25	; 0x800106 <data+0x1>
- 490:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <data>
-					state = StartSend;
- 494:	c4 e0       	ldi	r28, 0x04	; 4
- 496:	d0 e0       	ldi	r29, 0x00	; 0
- 498:	75 c0       	rjmp	.+234    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			
-		break;
-		
-		case StartSend:
-			
-			Odata = 0x0001;
- 49a:	81 e0       	ldi	r24, 0x01	; 1
-			if(Timer(4))
- 49c:	8b b9       	out	0x0b, r24	; 11
- 49e:	84 e0       	ldi	r24, 0x04	; 4
- 4a0:	90 e0       	ldi	r25, 0x00	; 0
- 4a2:	09 df       	rcall	.-494    	; 0x2b6 <Timer>
- 4a4:	88 23       	and	r24, r24
- 4a6:	09 f4       	brne	.+2      	; 0x4aa <__LOCK_REGION_LENGTH__+0xaa>
- 4a8:	6d c0       	rjmp	.+218    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			{
-				if(Tstate < 1)
- 4aa:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
- 4ae:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
- 4b2:	18 16       	cp	r1, r24
- 4b4:	19 06       	cpc	r1, r25
- 4b6:	34 f0       	brlt	.+12     	; 0x4c4 <__LOCK_REGION_LENGTH__+0xc4>
-				{
-					++Tstate;
- 4b8:	01 96       	adiw	r24, 0x01	; 1
- 4ba:	90 93 08 01 	sts	0x0108, r25	; 0x800108 <Tstate+0x1>
- 4be:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <Tstate>
- 4c2:	60 c0       	rjmp	.+192    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-				}
-				else
-				{
-					state = Send;
-					Tstate = 0;
- 4c4:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
- 4c8:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
-					//Odata = 0x00;
-					
-					if(((data) & 0x0001) == 0x0001)
- 4cc:	80 91 05 01 	lds	r24, 0x0105	; 0x800105 <data>
- 4d0:	80 ff       	sbrs	r24, 0
- 4d2:	05 c0       	rjmp	.+10     	; 0x4de <__LOCK_REGION_LENGTH__+0xde>
-					{
-						Odata = 0x0001;
- 4d4:	81 e0       	ldi	r24, 0x01	; 1
- 4d6:	8b b9       	out	0x0b, r24	; 11
-				{
-					++Tstate;
-				}
-				else
-				{
-					state = Send;
- 4d8:	c5 e0       	ldi	r28, 0x05	; 5
- 4da:	d0 e0       	ldi	r29, 0x00	; 0
- 4dc:	53 c0       	rjmp	.+166    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-					{
-						Odata = 0x0001;
-					}
-					else
-					{
-						Odata = 0x0000;
- 4de:	1b b8       	out	0x0b, r1	; 11
-				{
-					++Tstate;
-				}
-				else
-				{
-					state = Send;
- 4e0:	c5 e0       	ldi	r28, 0x05	; 5
- 4e2:	d0 e0       	ldi	r29, 0x00	; 0
-		
-		case Send:
-			
-			//Odata = 0x00;
-			
-			if(Timer(4))
- 4e4:	4f c0       	rjmp	.+158    	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
- 4e6:	84 e0       	ldi	r24, 0x04	; 4
- 4e8:	90 e0       	ldi	r25, 0x00	; 0
- 4ea:	e5 de       	rcall	.-566    	; 0x2b6 <Timer>
- 4ec:	88 23       	and	r24, r24
- 4ee:	e1 f0       	breq	.+56     	; 0x528 <__LOCK_REGION_LENGTH__+0x128>
-			{
-				
-				if(Tstate < InstructLength)
- 4f0:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
- 4f4:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
- 4f8:	8a 30       	cpi	r24, 0x0A	; 10
- 4fa:	91 05       	cpc	r25, r1
- 4fc:	dc f4       	brge	.+54     	; 0x534 <__LOCK_REGION_LENGTH__+0x134>
-				{
-					//Odata = (data >> (Tstate)) & 0x02;
-					++Tstate;
- 4fe:	01 96       	adiw	r24, 0x01	; 1
- 500:	90 93 08 01 	sts	0x0108, r25	; 0x800108 <Tstate+0x1>
- 504:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <Tstate>
-					if(((data >> (Tstate)) & 0x0001) == 0x0001)
- 508:	20 91 05 01 	lds	r18, 0x0105	; 0x800105 <data>
- 50c:	30 91 06 01 	lds	r19, 0x0106	; 0x800106 <data+0x1>
- 510:	a9 01       	movw	r20, r18
- 512:	02 c0       	rjmp	.+4      	; 0x518 <__LOCK_REGION_LENGTH__+0x118>
- 514:	55 95       	asr	r21
- 516:	47 95       	ror	r20
- 518:	8a 95       	dec	r24
- 51a:	e2 f7       	brpl	.-8      	; 0x514 <__LOCK_REGION_LENGTH__+0x114>
- 51c:	40 ff       	sbrs	r20, 0
- 51e:	03 c0       	rjmp	.+6      	; 0x526 <__LOCK_REGION_LENGTH__+0x126>
-					{
-						Odata = 0x0001;
- 520:	81 e0       	ldi	r24, 0x01	; 1
- 522:	8b b9       	out	0x0b, r24	; 11
- 524:	01 c0       	rjmp	.+2      	; 0x528 <__LOCK_REGION_LENGTH__+0x128>
-					}
-					else
-					{
-						Odata = 0x0000;
- 526:	1b b8       	out	0x0b, r1	; 11
-					
-				}
-				
-			}
-			
-			if(Tstate >= InstructLength)
- 528:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
- 52c:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
- 530:	0a 97       	sbiw	r24, 0x0a	; 10
- 532:	44 f1       	brlt	.+80     	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-			{
-				Tstate = 0;
- 534:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
- 538:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
-				state = EndSend;
- 53c:	c6 e0       	ldi	r28, 0x06	; 6
- 53e:	d0 e0       	ldi	r29, 0x00	; 0
-			}
-		break;
-		
-		case EndSend:
-			Odata = 0x0001;
- 540:	21 c0       	rjmp	.+66     	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
- 542:	81 e0       	ldi	r24, 0x01	; 1
-			if(Timer(4))
- 544:	8b b9       	out	0x0b, r24	; 11
- 546:	84 e0       	ldi	r24, 0x04	; 4
- 548:	90 e0       	ldi	r25, 0x00	; 0
- 54a:	b5 de       	rcall	.-662    	; 0x2b6 <Timer>
- 54c:	88 23       	and	r24, r24
-			{
-				state = Idle;
-				Odata = 0x0000;
- 54e:	d1 f0       	breq	.+52     	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-		
-		case EndSend:
-			Odata = 0x0001;
-			if(Timer(4))
-			{
-				state = Idle;
- 550:	1b b8       	out	0x0b, r1	; 11
- 552:	c0 e0       	ldi	r28, 0x00	; 0
- 554:	d0 e0       	ldi	r29, 0x00	; 0
-		break;
-		
-		
-		
-		case Gtemp:
-			TempTem = ADC_read(0x01);
- 556:	16 c0       	rjmp	.+44     	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
- 558:	81 e0       	ldi	r24, 0x01	; 1
- 55a:	90 e0       	ldi	r25, 0x00	; 0
- 55c:	00 df       	rcall	.-512    	; 0x35e <ADC_read>
- 55e:	90 93 13 01 	sts	0x0113, r25	; 0x800113 <TempTem+0x1>
- 562:	80 93 12 01 	sts	0x0112, r24	; 0x800112 <TempTem>
-			//data = ((0x0100) | TempTem);
-			//data = 0x0045;
-			Tstate = 0;
- 566:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
- 56a:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
-			state = StartSend;
- 56e:	c4 e0       	ldi	r28, 0x04	; 4
- 570:	d0 e0       	ldi	r29, 0x00	; 0
-		
-		break;
- 572:	08 c0       	rjmp	.+16     	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-					state = Store;
-					Tstate = 0;
-				}
-				else
-				{
-					state = Idle;
- 574:	c0 e0       	ldi	r28, 0x00	; 0
- 576:	d0 e0       	ldi	r29, 0x00	; 0
- 578:	05 c0       	rjmp	.+10     	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-		case CheckTask:
-		
-			Tstate = 0;
-			if(data == 0x00)
-			{
-				state = Idle;
- 57a:	c0 e0       	ldi	r28, 0x00	; 0
- 57c:	d0 e0       	ldi	r29, 0x00	; 0
- 57e:	02 c0       	rjmp	.+4      	; 0x584 <__LOCK_REGION_LENGTH__+0x184>
-				
-				if((((data) & 0x0103) == (0x0100 | ID)))
-				{
-					//LEDOUT = ID;
-					//data = (0x0300 & data);
-					state = Gtemp;
- 580:	c9 e0       	ldi	r28, 0x09	; 9
- 582:	d0 e0       	ldi	r29, 0x00	; 0
+ 3e0:	80 91 05 01 	lds	r24, 0x0105	; 0x800105 <data>
+ 3e4:	90 91 06 01 	lds	r25, 0x0106	; 0x800106 <data+0x1>
+ 3e8:	00 97       	sbiw	r24, 0x00	; 0
+ 3ea:	09 f4       	brne	.+2      	; 0x3ee <TickFct_Leader+0xf8>
+ 3ec:	83 c0       	rjmp	.+262    	; 0x4f4 <__LOCK_REGION_LENGTH__+0xf4>
+ 3ee:	90 ff       	sbrs	r25, 0
+ 3f0:	07 c0       	rjmp	.+14     	; 0x400 <__LOCK_REGION_LENGTH__>
+ 3f2:	9c 01       	movw	r18, r24
+ 3f4:	23 70       	andi	r18, 0x03	; 3
+ 3f6:	33 27       	eor	r19, r19
+ 3f8:	21 30       	cpi	r18, 0x01	; 1
+ 3fa:	31 05       	cpc	r19, r1
+ 3fc:	09 f4       	brne	.+2      	; 0x400 <__LOCK_REGION_LENGTH__>
+ 3fe:	7d c0       	rjmp	.+250    	; 0x4fa <__LOCK_REGION_LENGTH__+0xfa>
+ 400:	88 27       	eor	r24, r24
+ 402:	93 70       	andi	r25, 0x03	; 3
+ 404:	81 15       	cp	r24, r1
+ 406:	92 40       	sbci	r25, 0x02	; 2
+ 408:	09 f0       	breq	.+2      	; 0x40c <__LOCK_REGION_LENGTH__+0xc>
+ 40a:	79 c0       	rjmp	.+242    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 40c:	02 9b       	sbis	0x00, 2	; 0
+ 40e:	77 c0       	rjmp	.+238    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 410:	81 e0       	ldi	r24, 0x01	; 1
+ 412:	93 e0       	ldi	r25, 0x03	; 3
+ 414:	90 93 06 01 	sts	0x0106, r25	; 0x800106 <data+0x1>
+ 418:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <data>
+ 41c:	c4 e0       	ldi	r28, 0x04	; 4
+ 41e:	d0 e0       	ldi	r29, 0x00	; 0
+ 420:	6e c0       	rjmp	.+220    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 422:	81 e0       	ldi	r24, 0x01	; 1
+ 424:	8b b9       	out	0x0b, r24	; 11
+ 426:	84 e0       	ldi	r24, 0x04	; 4
+ 428:	90 e0       	ldi	r25, 0x00	; 0
+ 42a:	45 df       	rcall	.-374    	; 0x2b6 <Timer>
+ 42c:	88 23       	and	r24, r24
+ 42e:	09 f4       	brne	.+2      	; 0x432 <__LOCK_REGION_LENGTH__+0x32>
+ 430:	66 c0       	rjmp	.+204    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 432:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
+ 436:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
+ 43a:	18 16       	cp	r1, r24
+ 43c:	19 06       	cpc	r1, r25
+ 43e:	34 f0       	brlt	.+12     	; 0x44c <__LOCK_REGION_LENGTH__+0x4c>
+ 440:	01 96       	adiw	r24, 0x01	; 1
+ 442:	90 93 08 01 	sts	0x0108, r25	; 0x800108 <Tstate+0x1>
+ 446:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <Tstate>
+ 44a:	59 c0       	rjmp	.+178    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 44c:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
+ 450:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
+ 454:	80 91 05 01 	lds	r24, 0x0105	; 0x800105 <data>
+ 458:	80 ff       	sbrs	r24, 0
+ 45a:	05 c0       	rjmp	.+10     	; 0x466 <__LOCK_REGION_LENGTH__+0x66>
+ 45c:	81 e0       	ldi	r24, 0x01	; 1
+ 45e:	8b b9       	out	0x0b, r24	; 11
+ 460:	c5 e0       	ldi	r28, 0x05	; 5
+ 462:	d0 e0       	ldi	r29, 0x00	; 0
+ 464:	4c c0       	rjmp	.+152    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 466:	1b b8       	out	0x0b, r1	; 11
+ 468:	c5 e0       	ldi	r28, 0x05	; 5
+ 46a:	d0 e0       	ldi	r29, 0x00	; 0
+ 46c:	48 c0       	rjmp	.+144    	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 46e:	84 e0       	ldi	r24, 0x04	; 4
+ 470:	90 e0       	ldi	r25, 0x00	; 0
+ 472:	21 df       	rcall	.-446    	; 0x2b6 <Timer>
+ 474:	88 23       	and	r24, r24
+ 476:	e1 f0       	breq	.+56     	; 0x4b0 <__LOCK_REGION_LENGTH__+0xb0>
+ 478:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
+ 47c:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
+ 480:	8a 30       	cpi	r24, 0x0A	; 10
+ 482:	91 05       	cpc	r25, r1
+ 484:	dc f4       	brge	.+54     	; 0x4bc <__LOCK_REGION_LENGTH__+0xbc>
+ 486:	01 96       	adiw	r24, 0x01	; 1
+ 488:	90 93 08 01 	sts	0x0108, r25	; 0x800108 <Tstate+0x1>
+ 48c:	80 93 07 01 	sts	0x0107, r24	; 0x800107 <Tstate>
+ 490:	20 91 05 01 	lds	r18, 0x0105	; 0x800105 <data>
+ 494:	30 91 06 01 	lds	r19, 0x0106	; 0x800106 <data+0x1>
+ 498:	a9 01       	movw	r20, r18
+ 49a:	02 c0       	rjmp	.+4      	; 0x4a0 <__LOCK_REGION_LENGTH__+0xa0>
+ 49c:	55 95       	asr	r21
+ 49e:	47 95       	ror	r20
+ 4a0:	8a 95       	dec	r24
+ 4a2:	e2 f7       	brpl	.-8      	; 0x49c <__LOCK_REGION_LENGTH__+0x9c>
+ 4a4:	40 ff       	sbrs	r20, 0
+ 4a6:	03 c0       	rjmp	.+6      	; 0x4ae <__LOCK_REGION_LENGTH__+0xae>
+ 4a8:	81 e0       	ldi	r24, 0x01	; 1
+ 4aa:	8b b9       	out	0x0b, r24	; 11
+ 4ac:	01 c0       	rjmp	.+2      	; 0x4b0 <__LOCK_REGION_LENGTH__+0xb0>
+ 4ae:	1b b8       	out	0x0b, r1	; 11
+ 4b0:	80 91 07 01 	lds	r24, 0x0107	; 0x800107 <Tstate>
+ 4b4:	90 91 08 01 	lds	r25, 0x0108	; 0x800108 <Tstate+0x1>
+ 4b8:	0a 97       	sbiw	r24, 0x0a	; 10
+ 4ba:	0c f1       	brlt	.+66     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 4bc:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
+ 4c0:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
+ 4c4:	c6 e0       	ldi	r28, 0x06	; 6
+ 4c6:	d0 e0       	ldi	r29, 0x00	; 0
+ 4c8:	1a c0       	rjmp	.+52     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 4ca:	81 e0       	ldi	r24, 0x01	; 1
+ 4cc:	8b b9       	out	0x0b, r24	; 11
+ 4ce:	84 e0       	ldi	r24, 0x04	; 4
+ 4d0:	90 e0       	ldi	r25, 0x00	; 0
+ 4d2:	f1 de       	rcall	.-542    	; 0x2b6 <Timer>
+ 4d4:	88 23       	and	r24, r24
+ 4d6:	99 f0       	breq	.+38     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 4d8:	1b b8       	out	0x0b, r1	; 11
+ 4da:	c0 e0       	ldi	r28, 0x00	; 0
+ 4dc:	d0 e0       	ldi	r29, 0x00	; 0
+ 4de:	0f c0       	rjmp	.+30     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 4e0:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <Tstate+0x1>
+ 4e4:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <Tstate>
+ 4e8:	c4 e0       	ldi	r28, 0x04	; 4
+ 4ea:	d0 e0       	ldi	r29, 0x00	; 0
+ 4ec:	08 c0       	rjmp	.+16     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 4ee:	c0 e0       	ldi	r28, 0x00	; 0
+ 4f0:	d0 e0       	ldi	r29, 0x00	; 0
+ 4f2:	05 c0       	rjmp	.+10     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 4f4:	c0 e0       	ldi	r28, 0x00	; 0
+ 4f6:	d0 e0       	ldi	r29, 0x00	; 0
+ 4f8:	02 c0       	rjmp	.+4      	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
+ 4fa:	c4 e0       	ldi	r28, 0x04	; 4
+ 4fc:	d0 e0       	ldi	r29, 0x00	; 0
+ 4fe:	ce 01       	movw	r24, r28
+ 500:	df 91       	pop	r29
+ 502:	cf 91       	pop	r28
+ 504:	08 95       	ret
 
-
-	
-
+00000506 <main>:
 	return state;
 }
- 584:	ce 01       	movw	r24, r28
- 586:	df 91       	pop	r29
- 588:	cf 91       	pop	r28
- 58a:	08 95       	ret
 
-0000058c <__tablejump2__>:
- 58c:	ee 0f       	add	r30, r30
- 58e:	ff 1f       	adc	r31, r31
- 590:	00 24       	eor	r0, r0
- 592:	00 1c       	adc	r0, r0
- 594:	0b be       	out	0x3b, r0	; 59
- 596:	07 90       	elpm	r0, Z+
- 598:	f6 91       	elpm	r31, Z
- 59a:	e0 2d       	mov	r30, r0
- 59c:	09 94       	ijmp
 
-0000059e <_exit>:
- 59e:	f8 94       	cli
+int main(void)
+{
+ 506:	cf 93       	push	r28
+ 508:	df 93       	push	r29
+ 50a:	cd b7       	in	r28, 0x3d	; 61
+ 50c:	de b7       	in	r29, 0x3e	; 62
+ 50e:	2b 97       	sbiw	r28, 0x0b	; 11
+ 510:	0f b6       	in	r0, 0x3f	; 63
+ 512:	f8 94       	cli
+ 514:	de bf       	out	0x3e, r29	; 62
+ 516:	0f be       	out	0x3f, r0	; 63
+ 518:	cd bf       	out	0x3d, r28	; 61
+	DDRB = 0xFF; LEDOUT = 0x00; // ID LED's
+ 51a:	8f ef       	ldi	r24, 0xFF	; 255
+ 51c:	84 b9       	out	0x04, r24	; 4
+ 51e:	15 b8       	out	0x05, r1	; 5
+	DDRD = 0xFF; PORTD = 0x00; // RF Input and Output
+ 520:	8a b9       	out	0x0a, r24	; 10
+ 522:	1b b8       	out	0x0b, r1	; 11
+	DDRA = 0x00; PORTA = 0xFF; // Temp Resistor
+ 524:	11 b8       	out	0x01, r1	; 1
+ 526:	82 b9       	out	0x02, r24	; 2
+	//setupADC();
+	//ADC_read();
+	
+	//unsigned short x =ADC_read(1);
+	
+	LEDOUT = ID;
+ 528:	81 e0       	ldi	r24, 0x01	; 1
+ 52a:	85 b9       	out	0x05, r24	; 5
+	
+	//Set_Clock(500);
+	tasksNum = 1;
+ 52c:	80 93 0b 01 	sts	0x010B, r24	; 0x80010b <tasksNum>
+	task tsks[1];
+	tasks = tsks;
+ 530:	ce 01       	movw	r24, r28
+ 532:	01 96       	adiw	r24, 0x01	; 1
+ 534:	90 93 11 01 	sts	0x0111, r25	; 0x800111 <tasks+0x1>
+ 538:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <tasks>
+	
+	// define tasks
+	unsigned char i=0;
+	tasks[i].state = Idle;
+ 53c:	19 82       	std	Y+1, r1	; 0x01
+	tasks[i].period = 1;
+ 53e:	81 e0       	ldi	r24, 0x01	; 1
+ 540:	90 e0       	ldi	r25, 0x00	; 0
+ 542:	a0 e0       	ldi	r26, 0x00	; 0
+ 544:	b0 e0       	ldi	r27, 0x00	; 0
+ 546:	8a 83       	std	Y+2, r24	; 0x02
+ 548:	9b 83       	std	Y+3, r25	; 0x03
+ 54a:	ac 83       	std	Y+4, r26	; 0x04
+ 54c:	bd 83       	std	Y+5, r27	; 0x05
+	tasks[i].elapsedTime = tasks[i].period;
+ 54e:	8e 83       	std	Y+6, r24	; 0x06
+ 550:	9f 83       	std	Y+7, r25	; 0x07
+ 552:	a8 87       	std	Y+8, r26	; 0x08
+ 554:	b9 87       	std	Y+9, r27	; 0x09
+	tasks[i].TickFct = &TickFct_Leader;
+ 556:	8b e7       	ldi	r24, 0x7B	; 123
+ 558:	91 e0       	ldi	r25, 0x01	; 1
+ 55a:	9b 87       	std	Y+11, r25	; 0x0b
+ 55c:	8a 87       	std	Y+10, r24	; 0x0a
+	
+	TimerSet(tasks[i].period);
+ 55e:	61 e0       	ldi	r22, 0x01	; 1
+ 560:	70 e0       	ldi	r23, 0x00	; 0
+ 562:	80 e0       	ldi	r24, 0x00	; 0
+ 564:	90 e0       	ldi	r25, 0x00	; 0
+ 566:	72 de       	rcall	.-796    	; 0x24c <TimerSet>
+	TimerOn();
+ 568:	82 de       	rcall	.-764    	; 0x26e <TimerOn>
+ 56a:	ff cf       	rjmp	.-2      	; 0x56a <main+0x64>
 
-000005a0 <__stop_program>:
- 5a0:	ff cf       	rjmp	.-2      	; 0x5a0 <__stop_program>
+0000056c <__tablejump2__>:
+ 56c:	ee 0f       	add	r30, r30
+ 56e:	ff 1f       	adc	r31, r31
+ 570:	00 24       	eor	r0, r0
+ 572:	00 1c       	adc	r0, r0
+ 574:	0b be       	out	0x3b, r0	; 59
+ 576:	07 90       	elpm	r0, Z+
+ 578:	f6 91       	elpm	r31, Z
+ 57a:	e0 2d       	mov	r30, r0
+ 57c:	09 94       	ijmp
+
+0000057e <_exit>:
+ 57e:	f8 94       	cli
+
+00000580 <__stop_program>:
+ 580:	ff cf       	rjmp	.-2      	; 0x580 <__stop_program>
