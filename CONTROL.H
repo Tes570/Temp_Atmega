@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-unsigned int time = 0;
+unsigned long time = 0;
 
 bool Timer(unsigned int m)
 {

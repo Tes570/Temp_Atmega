@@ -15,9 +15,11 @@
 #include <stdio.h>
 
 #define Idata (((PINA & 0x01)) == 0x01)
+#define Jdata (((PINA & 0x02)) == 0x02)
 #define Gdata (PINA)
 #define Odata (PORTD)
-#define LEDOUT PORTB
+#define BOUT PORTB
+#define COUT PORTC
 #define ID (0x0003) // starts at 0x01. Cannot be 0.
 
 enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Gtemp};
@@ -32,41 +34,30 @@ short TempTem;
 
 
 void Set_Clock(int tic);
-void delay_ms(int miliSec); //for 8 Mhz crystal
-int read_ADC(char pin);
+
 
 	
 int TickFct_Leader(int state) {
 	
+	//((COUT) = (Gdata & 0x04));
 	
 	
 	switch(state) {
 		case -1:
 			state = Idle;
-			Odata = 0x0000;
+			BOUT = 0x0000;
 		break;
 		
 		case Idle:
 		
 			Tstate = 0;
-			LEDOUT = 0x00;
+			data = 0x0003;
 			
-			///*
-			if(Idata)
+			if((data & 0x01) == 0x01)
 			{
-				if(Timer(1))
-				{
-					state = Check;
-				}
-				
-			}//*/
+				BOUT = 0x03;
+			}
 			
-			/*
-			if(Timer(100))
-			{
-				data = 0x0135;
-				state = StartSend;
-			}//*/
 			
 			
 		break;
@@ -83,6 +74,7 @@ int TickFct_Leader(int state) {
 				}
 				else
 				{
+					data = 0x0000;
 					state = Idle;
 				}
 			}
@@ -127,121 +119,33 @@ int TickFct_Leader(int state) {
 			{
 				state = Idle;
 			}
-			else if(true)//Timer(5))
+			else
 			{
-				//	00  -  temp response
-				//	01  -  temp request
-				//	10  -  sync request
-				//	11  -  sync response
-				
-				//if((((data & 0x0003) > 0x0002)) && (data > 0x00FF) && ((data) < 0x0200))
-				
-				if( ((data & 0x0300) == 0x0100) && ((data & 0x000f) == ID))
-				{
-					//state = Gtemp;
-					
-					//state = StartSend;
-					
-					
-					LEDOUT = data;
-					
-					if(Timer(300))
-					{
-						//state = Idle;
-						state = Gtemp;
-						//state = StartSend;
-					}
-				}
-				else
-				{
-					state = Idle;
-				}
-				
+				BOUT = data;
+				COUT = ((data >> 8) | 0x04);
+				state = Gtemp;
 			}
 			
 			
 		break;
-		
-		case StartSend:
-			
-			Odata = 0x0001;
-			if(Timer(4))
-			{
-				if(Tstate < 1)
-				{
-					++Tstate;
-				}
-				else
-				{
-					state = Send;
-					Tstate = 0;
-					
-					if(((data) & 0x0001) == 0x0001)
-					{
-						Odata = 0x0001;
-					}
-					else
-					{
-						Odata = 0x0000;
-					}
-				}
-			}
-		break;
-		
-		case Send:
-		
-			if(Timer(4))
-			{
-				
-				if(Tstate < InstructLength)
-				{
-					++Tstate;
-					if(((data >> (Tstate)) & 0x0001) == 0x0001)
-					{
-						Odata = 0x0001;
-					}
-					else
-					{
-						Odata = 0x0000;
-					}
-					
-					
-				}
-				
-			}
-			
-			if(Tstate >= InstructLength)
-			{
-				Tstate = 0;
-				state = EndSend;
-			}
-		break;
-		
-		case EndSend:
-			Odata = 0x0001;
-			if(Timer(4))
-			{
-				state = Idle;
-				//state = -1;
-				Odata = 0x0000;
-			}
-		break;
-		
 		
 		
 		case Gtemp:
-			TempTem = read_ADC(0x01);
-			data = ((0x00FF) & TempTem);
-			//data = 0x0045;
-			Tstate = 0;
-			state = StartSend;
+			if(Timer(500))
+			{
+				BOUT = 0x00;
+				COUT = 0x00;
+				
+				state = Idle;
+				Tstate = 0;
+			}
 		
 		break;
 		
-		
+			
 	}
 
-
+	
 	
 
 	return state;
@@ -250,13 +154,14 @@ int TickFct_Leader(int state) {
 
 int main(void)
 {
-	DDRB = 0xFF; LEDOUT = 0x00; // ID LED's
+	DDRB = 0xFF; BOUT = 0x00; // ID LED's
+	DDRC = 0xFF; COUT = 0x00; // ID LED's
+	
 	DDRD = 0xFF; PORTD = 0x00; // RF Input and Output
 	DDRA = 0x00; PORTA = 0xFF; // Temp Resistor
 	
 	//unsigned short x =ADC_read(1);
 	
-	LEDOUT = ID;
 	
 	//Set_Clock(500);
 	tasksNum = 1;
@@ -280,14 +185,3 @@ int main(void)
 }
 
 
-
-
-int read_ADC(char pin)
-{
-	ADCSRA = (1<<ADEN)|(1<< ADPS1)|(1<<ADPS2);
-	ADMUX = (3 << REFS0)|(1<<ADLAR)|(pin << MUX0);
-	_delay_us(10);
-	ADCSRA |= (1<<ADSC);
-	while (ADCSRA & (1<<ADSC));
-	return ADCH;
-}
