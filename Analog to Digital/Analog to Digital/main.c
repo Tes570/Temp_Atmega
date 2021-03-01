@@ -6,6 +6,7 @@
  */ 
 
 #include "..//..//scheduler.h"
+#include "..//..//usart_ATmega1284.h"
 #include "..//..//CONTROL.H"
 #include <avr/io.h>
 
@@ -22,7 +23,7 @@
 #define COUT PORTC
 #define ID (0x0003) // starts at 0x01. Cannot be 0.
 
-enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Gtemp};
+enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp};
 	
 const int InstructLength = 10; 
 	
@@ -41,39 +42,27 @@ int TickFct_Leader(int state) {
 	
 	//((COUT) = (Gdata & 0x04));
 	
-	if(Jdata)
-	{
-		state = Idle;
-		data = 0x0000;
-		
-		BOUT = 0x00;
-		COUT = 0x00;
-	}
 	
 	switch(state) {
 		case -1:
 			state = Idle;
 			Odata = 0x0000;
+			BOUT = 0x00;
+			COUT = 0x00;
 		break;
 		
 		case Idle:
 		
 			Tstate = 0;
 			
-			///*
-			if(Idata)// && Jdata)
+			if(Idata)
 			{
 				if(Timer(1))
 				{
 					state = Check;
 				}
 				
-			}//*/
-			/*if(Timer(100))
-			{
-				data = 0x0135;
-				state = StartSend;
-			}*/
+			}
 			
 			
 		break;
@@ -135,28 +124,26 @@ int TickFct_Leader(int state) {
 			{
 				state = Idle;
 			}
-			else
+			else if((data & 0x0300) == 0x0000)
 			{
 				BOUT = data;
 				COUT = ((data >> 8) | 0x04);
-				state = Gtemp;
-			}
-			
-			
-		break;
-		
-		
-		case Gtemp:
-			if(Timer(500))
-			{
-				BOUT = 0x00;
-				COUT = 0x00;
+				if (USART_IsSendReady(0))
+				{
+					
+					USART_Send((0x00FF & data) , 0);
+				}
 				
 				state = Idle;
-				Tstate = 0;
 			}
-		
+			else
+			{
+				state = Idle;
+			}
+			
+			
 		break;
+		
 		
 			
 	}
@@ -175,6 +162,7 @@ int main(void)
 	
 	DDRD = 0xFF; PORTD = 0x00; // RF Input and Output
 	DDRA = 0x00; PORTA = 0xFF; // Temp Resistor
+	initUSART(0);
 	
 	//unsigned short x =ADC_read(1);
 	
@@ -186,7 +174,7 @@ int main(void)
 	
 	// define tasks
 	unsigned char i=0;
-	tasks[i].state = Idle;
+	tasks[i].state = -1;
 	tasks[i].period = 1;
 	tasks[i].elapsedTime = tasks[i].period;
 	tasks[i].TickFct = &TickFct_Leader;

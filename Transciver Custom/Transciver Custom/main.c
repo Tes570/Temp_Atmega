@@ -14,11 +14,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#define Idata (((PINA & 0x01)) == 0x01)
+#define Idata (((PINA & 0x02)) == 0x02)
 #define Gdata (PINA)
 #define Odata (PORTD)
 #define LEDOUT PORTB
-#define ID (0x0003) // starts at 0x01. Cannot be 0.
+#define ID (0x0002) // starts at 0x01. Cannot be 0.
 
 enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Gtemp};
 	
@@ -230,7 +230,7 @@ int TickFct_Leader(int state) {
 		
 		
 		case Gtemp:
-			TempTem = read_ADC(0x01);
+			TempTem = read_ADC(0);
 			data = ((0x00FF) & TempTem);
 			//data = 0x0045;
 			Tstate = 0;

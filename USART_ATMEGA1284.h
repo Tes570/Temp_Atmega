@@ -4,7 +4,7 @@
 // USART Setup Values
 #define F_CPU 1000000UL
 //#define F_CPU 64000UL 
-#define BAUD_RATE 50
+#define BAUD_RATE 9000
 #define BAUD_PRESCALE (((F_CPU / (BAUD_RATE * 16UL))) - 1)
 
 

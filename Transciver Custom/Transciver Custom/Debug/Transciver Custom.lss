@@ -428,7 +428,7 @@ int main(void)
 	//unsigned short x =ADC_read(1);
 	
 	LEDOUT = ID;
- 34c:	83 e0       	ldi	r24, 0x03	; 3
+ 34c:	82 e0       	ldi	r24, 0x02	; 2
  34e:	85 b9       	out	0x05, r24	; 5
 	
 	//Set_Clock(500);
@@ -563,7 +563,7 @@ int TickFct_Leader(int state) {
 			
 			///*
 			if(Idata)
- 3e6:	00 9b       	sbis	0x00, 0	; 0
+ 3e6:	01 9b       	sbis	0x00, 1	; 0
  3e8:	f3 c0       	rjmp	.+486    	; 0x5d0 <__LOCK_REGION_LENGTH__+0x1d0>
 			{
 				if(Timer(1))
@@ -593,7 +593,7 @@ int TickFct_Leader(int state) {
  400:	e7 c0       	rjmp	.+462    	; 0x5d0 <__LOCK_REGION_LENGTH__+0x1d0>
 			{
 				if(Idata)
- 402:	00 9b       	sbis	0x00, 0	; 0
+ 402:	01 9b       	sbis	0x00, 1	; 0
  404:	da c0       	rjmp	.+436    	; 0x5ba <__LOCK_REGION_LENGTH__+0x1ba>
 				{
 					data = 0x0000;
@@ -634,7 +634,7 @@ int TickFct_Leader(int state) {
 				{
 					
 					if(Idata)
- 436:	00 9b       	sbis	0x00, 0	; 0
+ 436:	01 9b       	sbis	0x00, 1	; 0
  438:	12 c0       	rjmp	.+36     	; 0x45e <__LOCK_REGION_LENGTH__+0x5e>
 					{
 						data = ((0x0001 << (Tstate))) | data;
@@ -662,7 +662,7 @@ int TickFct_Leader(int state) {
 					
 				}
 				else if(Idata)
- 46a:	00 9b       	sbis	0x00, 0	; 0
+ 46a:	01 9b       	sbis	0x00, 1	; 0
  46c:	07 c0       	rjmp	.+14     	; 0x47c <__LOCK_REGION_LENGTH__+0x7c>
 				{
 					
@@ -730,7 +730,7 @@ int TickFct_Leader(int state) {
  4b6:	9c 01       	movw	r18, r24
  4b8:	2f 70       	andi	r18, 0x0F	; 15
  4ba:	33 27       	eor	r19, r19
- 4bc:	23 30       	cpi	r18, 0x03	; 3
+ 4bc:	22 30       	cpi	r18, 0x02	; 2
  4be:	31 05       	cpc	r19, r1
  4c0:	09 f0       	breq	.+2      	; 0x4c4 <__LOCK_REGION_LENGTH__+0xc4>
 					//state = Gtemp;
@@ -906,9 +906,9 @@ int TickFct_Leader(int state) {
 		
 		
 		case Gtemp:
-			TempTem = read_ADC(0x01);
+			TempTem = read_ADC(0);
  594:	1d c0       	rjmp	.+58     	; 0x5d0 <__LOCK_REGION_LENGTH__+0x1d0>
- 596:	81 e0       	ldi	r24, 0x01	; 1
+ 596:	80 e0       	ldi	r24, 0x00	; 0
  598:	fc de       	rcall	.-520    	; 0x392 <read_ADC>
  59a:	90 93 15 01 	sts	0x0115, r25	; 0x800115 <TempTem+0x1>
  59e:	80 93 14 01 	sts	0x0114, r24	; 0x800114 <TempTem>
