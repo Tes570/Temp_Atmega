@@ -4,7 +4,7 @@
 // USART Setup Values
 #define F_CPU 1000000UL
 //#define F_CPU 64000UL 
-#define BAUD_RATE 9000
+#define BAUD_RATE 3000
 #define BAUD_PRESCALE (((F_CPU / (BAUD_RATE * 16UL))) - 1)
 
 
@@ -15,14 +15,14 @@ void initUSART(unsigned char usartNum)
 		UBRR0H = (BAUD_PRESCALE >> 8);
 		UBRR0L = BAUD_PRESCALE;
 		UCSR0B |= (1 << RXEN0)  | (1 << TXEN0);
-		UCSR0C |= (1 << UCSZ00) | (1 << UCSZ01);
+		UCSR0C |= (1 << UCSZ00) | (3 << UCSZ01);
 		
 		
 	}
 	else {
 
 		UCSR1B |= (1 << RXEN1)  | (1 << TXEN1);
-		UCSR1C |= (1 << UCSZ10) | (1 << UCSZ11);
+		UCSR1C |= (1 << UCSZ10) | (3 << UCSZ11);
 		UBRR1L = BAUD_PRESCALE;
 		UBRR1H = (BAUD_PRESCALE >> 8);
 	}
