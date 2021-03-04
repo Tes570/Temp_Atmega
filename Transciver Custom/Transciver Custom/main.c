@@ -18,7 +18,7 @@
 #define Gdata (PINA)
 #define Odata (PORTD)
 #define LEDOUT PORTB
-#define ID (0x0002) // starts at 0x01. Cannot be 0.
+#define ID (0x0001) // starts at 0x01. Cannot be 0.
 
 enum L_States { Idle, Check, Store, CheckTask, StartSend, Send, EndSend, RespondID, RespondTemp, Gtemp};
 	
@@ -231,8 +231,8 @@ int TickFct_Leader(int state) {
 		
 		case Gtemp:
 			TempTem = read_ADC(0);
-			data = ((0x00FF) & TempTem);
-			//data = 0x0045;
+			data = ((0x0200) | TempTem);
+			//data = 0x0225;
 			Tstate = 0;
 			state = StartSend;
 		

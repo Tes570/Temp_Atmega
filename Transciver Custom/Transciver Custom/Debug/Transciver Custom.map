@@ -215,7 +215,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x5ee
+.text           0x00000000      0x5ec
  *(.vectors)
  .vectors       0x00000000       0x8c E:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega1284/avr51/crtatmega1284.o
                 0x00000000                __vector_default
@@ -325,21 +325,21 @@ END GROUP
                 0x0000026e                TimerOn
  .text.Timer    0x000002b6       0x74 main.o
                 0x000002b6                Timer
- .text.main     0x0000032a       0x68 main.o
+ .text.main     0x0000032a       0x66 main.o
                 0x0000032a                main
  .text.read_ADC
-                0x00000392       0x2a main.o
-                0x00000392                read_ADC
+                0x00000390       0x2a main.o
+                0x00000390                read_ADC
  .text.TickFct_Leader
-                0x000003bc      0x21c main.o
-                0x000003bc                TickFct_Leader
- .text.libgcc   0x000005d8       0x12 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
-                0x000005d8                __tablejump2__
-                0x000005ea                . = ALIGN (0x2)
+                0x000003ba      0x21c main.o
+                0x000003ba                TickFct_Leader
+ .text.libgcc   0x000005d6       0x12 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
+                0x000005d6                __tablejump2__
+                0x000005e8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000005ea        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x000005ea                _exit
-                0x000005ea                exit
+ .fini9         0x000005e8        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x000005e8                _exit
+                0x000005e8                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -358,11 +358,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000005ea        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x000005e8        0x4 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x000005ee                _etext = .
+                0x000005ec                _etext = .
 
-.data           0x00800100        0x4 load address 0x000005ee
+.data           0x00800100        0x4 load address 0x000005ec
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -398,8 +398,8 @@ END GROUP
                 0x00800112                tasks
                 0x00800114                TempTem
                 0x00800116                PROVIDE (__bss_end, .)
-                0x000005ee                __data_load_start = LOADADDR (.data)
-                0x000005f2                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000005ec                __data_load_start = LOADADDR (.data)
+                0x000005f0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800116        0x0
                 [!provide]                PROVIDE (__noinit_start, .)

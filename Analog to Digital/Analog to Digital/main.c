@@ -6,7 +6,7 @@
  */ 
 
 #include "..//..//scheduler.h"
-#include "..//..//usart_ATmega1284.h"
+//#include "..//..//usart_ATmega1284.h"
 #include "..//..//CONTROL.H"
 #include <avr/io.h>
 
@@ -15,8 +15,9 @@
 #include <string.h>
 #include <stdio.h>
 
-#define Idata (((PINA & 0x01)) == 0x01)
-#define Jdata (((PINA & 0x02)) == 0x02)
+#define Idata ((((PINA & 0x02)) == 0x02) || (((PINA & 0x08)) == 0x08))
+#define Jdata (((PINA & 0x01)) == 0x01)
+#define Tdata (((PINA & 0x04)) == 0x04)
 #define Gdata (PINA)
 #define Odata (PORTD)
 #define BOUT PORTB
@@ -41,7 +42,11 @@ void Set_Clock(int tic);
 int TickFct_Leader(int state) {
 	
 	//((COUT) = (Gdata & 0x04));
-	
+	/*
+	if(!Tdata)
+	{
+		state = -1;
+	}//*/
 	
 	switch(state) {
 		case -1:
@@ -54,6 +59,8 @@ int TickFct_Leader(int state) {
 		case Idle:
 		
 			Tstate = 0;
+			BOUT = 0x00;
+			COUT = 0x00;
 			
 			if(Idata)
 			{
@@ -101,9 +108,17 @@ int TickFct_Leader(int state) {
 				}
 				else if(Idata)
 				{
+					if(Tdata)
+					{
+						state = StartSend;
+						Tstate = 0;
+					}
+					else
+					{
+						state = CheckTask;
+						Tstate = 0;
+					}
 					
-					state = CheckTask;
-					Tstate = 0;
 					
 				}
 				else
@@ -115,32 +130,103 @@ int TickFct_Leader(int state) {
 			}
 		break;
 		
+		
+		case StartSend:
+		
+			Odata = 0x0001;
+			if(Timer(4))
+			{
+				if(Tstate < 1)
+				{
+					++Tstate;
+				}
+				else
+				{
+					state = Send;
+					Tstate = 0;
+				
+					if(((data) & 0x0001) == 0x0001)
+					{
+						Odata = 0x0001;
+					}
+					else
+					{
+						Odata = 0x0000;
+					}
+				}
+			}
+		break;
+		
+		case Send:
+		
+			if(Timer(4))
+			{
+			
+				if(Tstate < InstructLength)
+				{
+					++Tstate;
+					if(((data >> (Tstate)) & 0x0001) == 0x0001)
+					{
+						Odata = 0x0001;
+					}
+					else
+					{
+						Odata = 0x0000;
+					}
+				
+				
+				}
+			
+			}
+		
+			if(Tstate >= InstructLength)
+			{
+				Tstate = 0;
+				state = EndSend;
+			}
+		break;
+		
+		case EndSend:
+			Odata = 0x0001;
+			if(Timer(4))
+			{
+				state = Idle;
+				//state = -1;
+				Odata = 0x0000;
+			}
+		break;
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		case CheckTask:
 		
 			Tstate = 0;
-			if(data == 0x00)
-			{
-				state = Idle;
-			}
-			else if((data & 0x0300) == 0x0000)
+			///*
+			if((data & 0x0300) == 0x0200)
 			{
 				BOUT = data;
-				COUT = ((data >> 8) | 0x04);
-				if (USART_IsSendReady(0))
-				{
-					
-					USART_Send((0x00FF & data) , 0);
-				}
+				COUT = 0x03;
 				
+				_delay_us(10000000); //10 Sec
+				//_delay_us(10000000); //10 Sec
+				//_delay_us(10000000); //10 Sec
+				//_delay_us(10000000); //10 Sec
+				//_delay_us(2000000); // 2 Sec
 				state = Idle;
+				BOUT = 0x00;
+				COUT = 0x00;
+				_delay_us(10000);
+				
 			}
 			else
 			{
 				state = Idle;
-			}
+			}//*/
 			
+			
+			//COUT = ((data >> 8) | 0x04);
+			//_delay_us(1000000);
+			//state = Idle;
 			
 		break;
 		
@@ -162,7 +248,6 @@ int main(void)
 	
 	DDRD = 0xFF; PORTD = 0x00; // RF Input and Output
 	DDRA = 0x00; PORTA = 0xFF; // Temp Resistor
-	initUSART(0);
 	
 	//unsigned short x =ADC_read(1);
 	
